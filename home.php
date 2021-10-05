@@ -6,10 +6,10 @@
 		<?php
 		require("conf.php");
 		$wynik = mysqli_query($conn, "select * from ksiazki order by id desc limit 4");
-
+		$i=1;
 		while ($wiersz = mysqli_fetch_array($wynik))
 			{
-			echo '<a href="index.php?plik=opis&nr=' . $wiersz ["id"] . '"><div class="ksiazka">';
+			echo '<a href="index.php?plik=opis&nr=' . $wiersz ["id"] . '"><div class="ksiazka" style="--kol:'.$i++.'">';
 			echo '<img width="240px" class="ksiazkaimg" src="img/' . $wiersz ["id"] . '.jpg" height="320px"/>';
 			echo '<div class="ksiazkaname">' . $wiersz ["tyt_pol"] . '<br>'
 			. $wiersz ["cena"] .' zł</div>';
@@ -27,7 +27,7 @@
 
 		while ($wiersz = mysqli_fetch_array($wynik))
 			{
-			echo '<a href="index.php?plik=opis&nr=' . $wiersz ["id"] . '"><div class="ksiazka">';
+			echo '<a href="index.php?plik=opis&nr=' . $wiersz ["id"] . '"><div class="ksiazka" style="--kol:'.$i++.'">';
 			echo '<img width="240px" class="ksiazkaimg" src="img/' . $wiersz ["id"] . '.jpg" height="320px"/>';
 			echo '<div class="ksiazkaname">' . $wiersz ["tyt_pol"] . '<br>'
 			. $wiersz ["cena"] .' zł</div>';

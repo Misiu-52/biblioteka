@@ -6,6 +6,7 @@
   --greenlight: #99d066;
   --black: #000;
   --white: #fff;
+  --kol: 0;
 }
 
 body
@@ -140,7 +141,23 @@ h2{
 	-moz-transition: all 0.5s;
 	-ms-transition: all 0.5s;
 	-o-transition: all 0.5s;
+	animation: itemStart 2s ease;
+	animation-delay: calc(var(--kol)* 100ms);
+	position: relative;
 }
+
+@keyframes itemStart {
+  from {
+	top: -100vh;
+	opacity:0;
+  
+  }
+  to {
+	top:0px;
+	opacity:1;
+  }
+}
+
 
 .ksiazkaname{
 	background-color: var(--greendark);
