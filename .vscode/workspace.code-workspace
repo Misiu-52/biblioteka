@@ -1,0 +1,46 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		},
+		{
+			"path": "..\\..\\forum"
+		},
+		{
+			"path": "..\\..\\kalkulator js"
+		},
+		{
+			"path": "..\\..\\kurs_php2"
+		},
+		{
+			"path": "..\\..\\kursy"
+		},
+		{
+			"path": "..\\..\\Navbar responsywny fireship"
+		},
+		{
+			"path": "..\\..\\slider"
+		},
+		{
+			"path": "..\\..\\strona filoteka"
+		},
+		{
+			"path": "..\\..\\Strona sp65"
+		},
+		{
+			"path": "..\\..\\Strona sp65 stara"
+		},
+		{
+			"path": "..\\..\\stronka"
+		},
+		{
+			"path": "..\\..\\stronka 5 miejsc"
+		},
+		{
+			"path": "..\\..\\Style strony fireship"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "biblioteka"
+	}
+}
