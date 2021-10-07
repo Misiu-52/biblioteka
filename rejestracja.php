@@ -1,3 +1,12 @@
+<?php
+	if (isset($_SESSION['zalogowany']))
+	{
+		header('Location: index.php?plik=ustawienia');
+		exit();
+	}
+?>
+
+
 <form>
   <label for="login">Login:</label><br>
   <input type="text" id="username" name="xlogin" size="23"><br>

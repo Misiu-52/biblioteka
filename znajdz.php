@@ -40,4 +40,3 @@ do: <input type="date" name="xdo">
 <input type="submit" value="Szukaj">
 </p>
 </form>
-</center>

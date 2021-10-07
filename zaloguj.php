@@ -1,53 +1,40 @@
 <?php
-
-	session_start();
+	require("conf.php");
 	
-	if ((!isset($_POST['login'])) || (!isset($_POST['haslo'])))
+	if ((!isset($_POST['xlogin'])) || (!isset($_POST['xhaslo'])))
 	{
 		header('Location: index.php?plik=home');
 		exit();
 	}
-
-	require "conf.php";
-
-	$polaczenie = @new mysqli($host, $db_user, $db_password, $db_name);
-	
 	else
 	{
-		$login = $_POST['login'];
-		$haslo = $_POST['haslo'];
-		
-		$login = htmlentities($login, ENT_QUOTES, "UTF-8");
-		$haslo = htmlentities($haslo, ENT_QUOTES, "UTF-8");
+		$login = $_POST['xlogin'];
+		$haslo = $_POST['xhaslo'];
+
 	
-		if ($rezultat = @$polaczenie->query(
-		sprintf("SELECT * FROM uzytkownicy WHERE user='%s' AND pass='%s'",
-		mysqli_real_escape_string($polaczenie,$login),
-		mysqli_real_escape_string($polaczenie,$haslo))))
+		if ($wynik = mysqli_query($conn, "SELECT * FROM uzytkownicy WHERE user='$login' AND pass='$haslo'"))
 		{
-			$ilu_userow = $rezultat->num_rows;
+			$ilu_userow = mysqli_num_rows($wynik);
 			if($ilu_userow>0)
 			{
 				$_SESSION['zalogowany'] = true;
 				
-				$wiersz = $rezultat->fetch_assoc();
+				$wiersz = mysqli_fetch_array($wynik);
 				$_SESSION['id'] = $wiersz['id'];
 				$_SESSION['user'] = $wiersz['user'];
+				$_SESSION['kol_pdst'] = $wiersz['kol_pdst'];
+				$_SESSION['kol_ciem'] = $wiersz['kol_ciem'];
+				$_SESSION['kol_jas'] = $wiersz['kol_jas'];
 				
-				unset($_SESSION['blad']);
-				$rezultat->free_result();
 				header('Location: index.php?plik=ustawienia');
 				
 			} else {
-				
-				$_SESSION['blad'] = '<span style="color:red">Nieprawidłowy login lub hasło!</span>';
 				header('Location: index.php?plik=logowanie');
 				
 			}
 			
 		}
-		
-		$polaczenie->close();
+
 	}
 	
 ?>
