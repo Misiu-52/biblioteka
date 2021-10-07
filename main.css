@@ -21,11 +21,14 @@ body
 	background-attachment: fixed;
 	background-position: center; 
 	background-color: var(--green);
+	overflow-x: hidden;
 }
 
 #logo{
 	padding: 15px;
 	height: 100px;
+	margin-left:auto;
+	margin-right:auto;
 }
 
 a
@@ -86,20 +89,29 @@ h2{
     grid-template-rows: 1fr;
 	justify-items: center;
 	padding: 10px;
+	animation: wystawaStart 1s ease;
+	animation-delay: 100ms;
+	position: relative;
 }
+
+@keyframes wystawaStart {
+  from {
+	right: -100vh;
+	opacity:0;
+  }
+  to {
+	right:0px;
+	opacity:1;
+  }
+}
+
+
 
 .sklep {
 	display: grid;
-	grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr;
-    grid-column-gap: 20px;
-    grid-row-gap: 20px;
-    justify-items: stretch;
-    align-items: stretch;
-	padding: 10px;
+	grid-template-columns: auto auto auto;
+	margin: auto;
 	justify-content: space-around;
-	margin-left: auto;
-	margin-right: auto;
 	width: 60vw;
 }
 
@@ -141,19 +153,19 @@ h2{
 	-moz-transition: all 0.5s;
 	-ms-transition: all 0.5s;
 	-o-transition: all 0.5s;
-	animation: itemStart 2s ease;
-	animation-delay: calc(var(--kol)* 100ms);
+	animation: itemStart 1s ease;
+	animation-delay: calc(var(--kol)* 50ms);
 	position: relative;
 }
 
 @keyframes itemStart {
   from {
-	top: -100vh;
+	right: -100vh;
 	opacity:0;
   
   }
   to {
-	top:0px;
+	right:0px;
 	opacity:1;
   }
 }
@@ -190,6 +202,7 @@ h2{
 input[type="submit"],
 input[type="reset"],
 input[type="button"],
+input[type="password"],
 button {
 	display: inline-block;
 	padding: 8px 12px;
@@ -210,6 +223,7 @@ button {
 input[type="submit"]:hover,
 input[type="reset"]:hover,
 input[type="button"]:hover,
+input[type="password"]:hover,
 input[type="text"]:hover,
 input[type="date"]:hover,
 input[type="number"]:hover,
