@@ -6,5 +6,8 @@
 		{
 			"path": "..\\strona filoteka"
 		}
-	]
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "biblioteka"
+	}
 }
