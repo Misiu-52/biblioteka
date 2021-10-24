@@ -1,6 +1,5 @@
 <h2>Wynik szukania</h2>
 <?php
-session_start();
 if (!isset($_GET['grupa']))
 	{
 	$xfraza = $_POST['xfraza'];

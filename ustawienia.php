@@ -1,11 +1,14 @@
 <?php
-	if (!isset($_SESSION['zalogowany']))
+	if ($_SESSION['zalogowany']==FALSE)
 	{
 		header('Location: index.php?plik=home');
 		exit();
 	}
 ?>
 
+Witaj <?php echo $_SESSION['user']?>
+
+<!--
 <h2>Dobierz własne kolory strony</h2>
 <form method="post" action="index.php?plik=ustawienia">
 <p>
@@ -23,7 +26,7 @@
 
 <input type="submit" value="Zapisz">
 </form>
-
+-->
 <?php
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		require("conf.php");
@@ -33,5 +36,8 @@
 		$iduser = $_SESSION['id'];
 		$sql = mysqli_query($conn, "UPDATE `uzytkownicy` SET `kol_pdst` = '$kol_pdst', `kol_ciem` = '$kol_ciem', `kol_jas` = '$kol_jas' WHERE `uzytkownicy`.`iduser` = $iduser;");
 		echo '<h2>Zmieniono styl</h2>';
+		setcookie(kol_pdst, $kol_pdst);
+		setcookie(kol_ciem, $kol_ciem);
+		setcookie(kol_jas, $kol_jas);
     }
 ?>

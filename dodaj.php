@@ -38,6 +38,7 @@ while ($wiersz = mysqli_fetch_array($wynik))
 Cena: <input type="number" name="xcena" value="0" min="0" max="1000"> zł
 <P>Opis:<Br>
 <Br><textarea required name="xopis" cols="70" rows="5"></textarea>
+<p><input type="file" name="xobraz"></p>
 <P><input type="submit" value="Dodaj">
 	<input type="reset" value="Wyczyść">
 </form>
@@ -55,6 +56,43 @@ Cena: <input type="number" name="xcena" value="0" min="0" max="1000"> zł
 			$xcena= $_POST["xcena"];
 			$xopis= $_POST["xopis"];
 			$sql = mysqli_query($conn, "insert into ksiazki values('','$xpol','$xorg','$xautor','$xgat','$xwyd','$xopis','$xokl','$xcena','$xdatawyd')");
+
+
+			$target_dir = "img/";
+			$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+			$uploadOk = 1;
+			$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+			
+			// Check if image file is a actual image or fake image
+			if(isset($_POST["submit"])) {
+			  $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
+			  if($check !== false) {
+				echo "Obraz - " . $check["mime"] . ".";
+				$uploadOk = 1;
+			  } else {
+				echo "To nie jest obraz w jpg.";
+				$uploadOk = 0;
+			  }
+			}
+			
+			// Allow certain file formats
+			if($imageFileType != "jpg") {
+			  echo "Wymaganym formatem jest jpg.";
+			  $uploadOk = 0;
+			}
+			
+			// Check if $uploadOk is set to 0 by an error
+			if ($uploadOk == 0) {
+			  echo "Wysyłanie się nie powiodło.";
+			// if everything is ok, try to upload file
+			} else {
+			  if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+				echo "Obraz ". htmlspecialchars( basename( $_FILES["fileToUpload"]["name"])). " wysłano.";
+			  } else {
+				echo "Wysyłanie się nie powiodło.";
+			  }
+			}
+
 			echo '<h2>Dodano książkę <font color="black">'.$xpol.'</font> do księgarni</h2>';
         }
 ?>

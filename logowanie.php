@@ -1,6 +1,6 @@
 <?php
 	
-	if (isset($_SESSION['zalogowany']))
+	if ($_SESSION['zalogowany']==TRUE)
 	{
 		header('Location: index.php?plik=ustawienia');
 		exit();

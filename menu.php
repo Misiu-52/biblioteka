@@ -7,7 +7,7 @@
 
 <?php
 	
-	if (isset($_SESSION['zalogowany']))
+	if ($_SESSION['zalogowany']==TRUE)
 	{
 		echo'<a href="index.php?plik=wyloguj" class="menuItem"><i class="fas fa-sign-out-alt"></i></a>';
 	}

@@ -1,6 +1,10 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto');
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,500;1,300;1,900&display=swap');
 
 :root {
+  --green: #546e7a;
+  --greendark: #29434e;
+  --greenlight: #819ca9;
   --black: #000;
   --white: #fff;
   --kol: 0;
@@ -83,12 +87,18 @@ h2{
 	background-color: var(--greenlight);
 	margin: auto;
 	grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr;
+	grid-template-rows: 1fr;
 	justify-items: center;
 	padding: 10px;
+	width: 1100px;
 	animation: wystawaStart 1s ease;
 	animation-delay: 100ms;
 	position: relative;
+	border-radius: 15px;
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	-ms-border-radius: 15px;
+	-o-border-radius: 15px;
 }
 
 @keyframes wystawaStart {
@@ -109,7 +119,7 @@ h2{
 	grid-template-columns: auto auto auto;
 	margin: auto;
 	justify-content: space-around;
-	width: 60vw;
+	width: 800px;
 }
 
 #opis {
@@ -170,12 +180,12 @@ h2{
 
 .ksiazkaname{
 	background-color: var(--greendark);
+	color: var(--white);
 	width: 240px;
 	max-height: 70px;
 	position: relative;
 	font-size: 14px;
 	word-break: break-word;
-	font-weight: bold;
 	border-radius: 15px;
 	-webkit-border-radius: 15px;
 	-moz-border-radius: 15px;
@@ -281,13 +291,43 @@ form{
 
 .footer{
 	text-align: center;
-	font-weight: bold;
-	font-size: 25px;
+	font-size: 40px;
 	vertical-align: middle;
 	color: var(--white);
 	margin: 10px;
 	margin-bottom: 100px;
+	font-family: Consolas, 'Courier New';
 }
+
+.headerocena
+{
+	padding: 10px;
+	text-align: left;
+	font-size: 20px;
+	font-weight: bold;
+	border-bottom: 2px solid var(--greenlight);
+	margin-bottom: 15px;
+}
+
+.ocena {
+	padding: 10px;
+	z-index: 98;
+	background: var(--greendark);
+	color: var(--white);
+	border: 0px dotted #000000;
+	text-align: justify;
+	font-size: 15px;
+	border-left: 5px solid var(--greenlight);
+	transition: 2s;
+	border-radius: 15px;
+	margin: 20px;
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	-ms-border-radius: 15px;
+	-o-border-radius: 15px;
+}
+
+
 
 @media screen and (max-width: 1350px) {
 	.wystawa {
@@ -314,3 +354,4 @@ form{
 		grid-template-columns: 1fr;
 	}
   }
+ 
