@@ -297,6 +297,7 @@ form{
 	margin: 10px;
 	margin-bottom: 100px;
 	font-family: Consolas, 'Courier New';
+	display: inline-block;
 }
 
 .headerocena
@@ -325,6 +326,45 @@ form{
 	-moz-border-radius: 15px;
 	-ms-border-radius: 15px;
 	-o-border-radius: 15px;
+}
+
+.error{
+	padding: 10px;
+	color: #000;
+	border-left: 4px solid #970606;
+	border-bottom: 3px solid #970606;
+	border-radius: 15px;
+	text-align: left;
+	font-size: 30px;
+	font-weight: bold;
+	margin-bottom: 15px;
+	display: inline-block;
+}
+
+.warn {
+	padding: 10px;
+	color: #000;
+	border-left: 4px solid #dde00c;
+	border-bottom: 3px solid #dde00c;
+	border-radius: 15px;
+	text-align: left;
+	font-size: 30px;
+	font-weight: bold;
+	margin-bottom: 15px;
+	display: inline-block;
+  }
+
+.suc {
+	padding: 10px;
+	color: #000;
+	border-left: 4px solid #06b306;
+	border-bottom: 3px solid #06b306;
+	border-radius: 15px;
+	text-align: left;
+	font-size: 30px;
+	font-weight: bold;
+	margin-bottom: 15px;
+	display: inline-block;
 }
 
 

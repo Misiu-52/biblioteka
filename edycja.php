@@ -33,7 +33,7 @@ require("conf.php");
 $wynikw = mysqli_query($conn, "select * from wyd ORDER By wyd");
 while ($wierszw = mysqli_fetch_array($wynikw))
 {
-	echo '<option value="' . $wierszg["idwyd"] . '" ';	
+	echo '<option value="' . $wierszw["idwyd"] . '" ';	
 if ($wierszw["wyd"]==$wierszw["idwyd"])	{echo ' selected'; }
 echo	'>' . $wierszw["wyd"] . '</option>';
 }
@@ -72,7 +72,7 @@ Cena: <input type="number" name="xcena" min="0" max="1000" value="<?php echo $wi
 			$xokl= $_POST["xokl"];
 			$xcena= $_POST["xcena"];
 			$xopis= $_POST["xopis"];
-			$sql = mysqli_query($conn, "UPDATE `ksiazki` SET `tyt_pol`='$xpol',`tyt_org`='$xorg',`autor`='$xautor',`gatunek`='$xgat',`wydawnictwo`='$xwyd',`opis`='$xopis',`okladka`='$xokl',`cena`='$xcena',`datawyd`='$xdatawyd' WHERE `ksiazki`.`id`='$nr'");
+			$sql = mysqli_query($conn, "UPDATE ksiazki SET tyt_pol='$xpol', tyt_org='$xorg', autor='$xautor', gatunek='$xgat', wydawnictwo='$xwyd', opis='$xopis', okladka='$xokl',cena='$xcena', datawyd='$xdatawyd' WHERE id='$nr'") or die(mysqli_error($conn));
 			echo '<h2>Edytowano książkę <font color="black">'.$xpol.'</font></h2>';
         }
 ?>

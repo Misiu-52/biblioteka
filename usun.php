@@ -1,4 +1,4 @@
-<h2>Książka została usunięta!!!</h2>
+<center><div class="error">Książka została usunięta!!!</div></center>
 <?php
 require("conf.php");
 $nr= $_GET["nr"];

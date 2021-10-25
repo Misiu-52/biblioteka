@@ -25,7 +25,7 @@ echo '<div class="imgside"><h1>'.  $wiersz["tyt_pol"] . '<br>('.  $wiersz["tyt_o
 if (($_SESSION['zalogowany'])== true)
 {
     echo'<a href="index.php?plik=usun&nr=' . $nr . '"><button><i class="fas fa-trash-alt"></i></button></a>';
-    echo' <a href="index.php?plik=edycjax&nr=' . $nr . '"><button type="button"><i class="fas fa-edit"></i></button></a>';
+    echo' <a href="index.php?plik=edycja&nr=' . $nr . '"><button type="button"><i class="fas fa-edit"></i></button></a>';
 }
 
 echo'</div>';

@@ -42,7 +42,6 @@
 		<?php
 		include("menu.php");
 
-		
 		if(!isset($_GET['plik'])) {$plik = 'home';}
 		else{$plik = $_GET['plik'];}
 		$roz = '.php';
