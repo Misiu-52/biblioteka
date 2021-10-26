@@ -112,8 +112,6 @@ h2{
   }
 }
 
-
-
 .sklep {
 	display: grid;
 	grid-template-columns: auto auto auto;
@@ -268,11 +266,11 @@ button {
 	margin: 5px;
 }
 textarea{
-	transition: all 0ms ease;
-	-webkit-transition: all 0ms ease;
-	-moz-transition: all 0ms ease;
-	-ms-transition: all 0ms ease;
-	-o-transition: all 0ms ease;
+	transition: background-color 300ms ease;
+	-webkit-transition: background-color 300ms ease;
+	-moz-transition: background-color 300ms ease;
+	-ms-transition: background-color 300ms ease;
+	-o-transition: background-color 300ms ease;
 }
 
 form{
@@ -292,12 +290,11 @@ form{
 .footer{
 	text-align: center;
 	font-size: 40px;
-	vertical-align: middle;
 	color: var(--white);
 	margin: 10px;
 	margin-bottom: 100px;
 	font-family: Consolas, 'Courier New';
-	display: inline-block;
+	display: block;
 }
 
 .headerocena

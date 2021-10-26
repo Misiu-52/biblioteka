@@ -1,6 +1,7 @@
 <?php
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			require("conf.php");
+
 			$xpol= $_POST["xpol"];
 			$xorg= $_POST["xorg"];
 			$xautor= $_POST["xautor"];
@@ -10,22 +11,20 @@
 			$xokl= $_POST["xokl"];
 			$xcena= $_POST["xcena"];
 			$xopis= $_POST["xopis"];
-			$sql = mysqli_query($conn, "insert into ksiazki values('','$xpol','$xorg','$xautor','$xgat','$xwyd','$xopis','$xokl','$xcena','$xdatawyd')");
-
 
 			$target_dir = "img/";
-			$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+			$target_file = $target_dir . basename($_FILES["xobraz"]["name"]);
 			$uploadOk = 1;
 			$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 			
 			// Check if image file is a actual image or fake image
 			if(isset($_POST["submit"])) {
-			  $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
+			  $check = getimagesize($_FILES["xobraz"]["tmp_name"]);
 			  if($check !== false) {
 				echo "Obraz - " . $check["mime"] . ".";
 				$uploadOk = 1;
 			  } else {
-				echo "To nie jest obraz w jpg.";
+				echo "To nie jest obraz.";
 				$uploadOk = 0;
 			  }
 			}
@@ -35,25 +34,36 @@
 			  echo "Wymaganym formatem jest jpg.";
 			  $uploadOk = 0;
 			}
+			else{
+				$sqlfile=mysqli_query($conn,"SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = '2021_2b1_biblioteka' AND TABLE_NAME = 'ksiazki';");
+				$sqlfilefetch = $sqlfile->fetch_assoc();
+				$target_file=$target_dir.$sqlfilefetch["AUTO_INCREMENT"].".jpg";
+
+			}
 			
 			// Check if $uploadOk is set to 0 by an error
 			if ($uploadOk == 0) {
 			  echo "Wysyłanie się nie powiodło.";
 			// if everything is ok, try to upload file
 			} else {
-			  if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-				echo "Obraz ". htmlspecialchars( basename( $_FILES["fileToUpload"]["name"])). " wysłano.";
-			  } else {
+			  if (move_uploaded_file($_FILES["xobraz"]["tmp_name"], $target_file)) {
+				
+				echo "Obraz ". htmlspecialchars( basename( $_FILES["xobraz"]["name"])). " wysłano.";
+
+				$sql = mysqli_query($conn, "insert into ksiazki values('','$xpol','$xorg','$xautor','$xgat','$xwyd','$xopis','$xokl','$xcena','$xdatawyd')");
+				} 
+			else {
 				echo "Wysyłanie się nie powiodło.";
 			  }
 			}
-
+			
 			echo '<br><div class="suc">Dodano książkę <font color="white">'.$xpol.'</font> do księgarni</div>';
+			
         }
 ?>
 <h2>Dodaj swoją książkę</h2>
 
-<form method="post" action="index.php?plik=dodaj">
+<form method="post" action="index.php?plik=dodaj" enctype="multipart/form-data">
 Tytuł polski: <input required type="text" name="xpol" size="50" maxlength="35">
 <P>Tytuł orginalny: <input required type="text" name="xorg" size="50" maxlength="35">
 <P>Autor: <input required type="text" name="xautor" size="50" maxlength="60">
