@@ -18,25 +18,76 @@ $iduser=$_SESSION['id'];
 
 require("conf.php");
 
-echo '<h2>Twoje oceny</h2>';
+$idus=$_SESSION['id'];
+$roz = '.jpg';
+if (file_exists("img/user/$idus$roz")) {
+	$idusjpg=$idus.$roz;
+}
+else {
+	$idusjpg="0.jpg";
+}
+echo'<h2>Zmień awatar</h2>';
+echo'<p><img style="border-radius:50%; height:300px; width:300px;"src="img/user/'.$idusjpg.'"/></p>';
+?>
+<form method="post" action="index.php?plik=ustawienia" enctype="multipart/form-data">
+<p><input type="file" name="xobraz"></p>
+<P><input type="submit" value="Dodaj">
+</form>
 
-$wynik = mysqli_query($conn, "select * from oceny");
+<?php
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+	require("conf.php");
+	$target_dir = "img/user/";
+	$target_file = $target_dir . basename($_FILES["xobraz"]["name"]);
+	$uploadOk = 1;
+	$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+	
+	// Check if image file is a actual image or fake image
+	if(isset($_POST["submit"])) {
+	$check = getimagesize($_FILES["xobraz"]["tmp_name"]);
+	if($check !== false) {
+		echo "Obraz - " . $check["mime"] . ".";
+		$uploadOk = 1;
+	} else {
+		echo "To nie jest obraz.";
+		$uploadOk = 0;
+	}
+	}
+	
+	// Allow certain file formats
+	if($imageFileType != "jpg") {
+	echo "Wymaganym formatem jest jpg.";
+	$uploadOk = 0;
+	}
+	else{
+		$target_file=$target_dir.$iduser.".jpg";
+	}
+	
+	// Check if $uploadOk is set to 0 by an error
+	if ($uploadOk == 0) {
+	echo "Wysyłanie się nie powiodło.";
+	// if everything is ok, try to upload file
+	} else {
+	if (move_uploaded_file($_FILES["xobraz"]["tmp_name"], $target_file)) {
+		
+		echo "Obraz ". htmlspecialchars( basename( $_FILES["xobraz"]["name"])). " wysłano.";
+		} 
+	else {
+		echo "Wysyłanie się nie powiodło.";
+	}
+	}
+}
+
+echo '<br><h2>Twoje oceny</h2>';
+$wynik = mysqli_query($conn, "SELECT * from oceny WHERE idus=$iduser;");
 $ile = mysqli_num_rows($wynik);
+echo '<h3>Wstawiłeś ocen: ';
+echo  $ile .'</h3>';
 $poile=2;
 $pomin=($grupa-1)*$poile;
 $ilegrup = ceil($ile/$poile);
-
-$wynikkom = mysqli_query($conn, "SELECT * FROM oceny INNER JOIN uzytkownicy WHERE oceny.idus=uzytkownicy.iduser AND idus=$iduser order by datadod desc LIMIT $pomin,$poile");
-while ($wierszkom = mysqli_fetch_array($wynikkom))
-{
-    echo '<div class="ocena">
-        <div class="headerocena">' . $wierszkom ["user"].'<span style="float: right;"> ' . $wierszkom ["datadod"].'</span>' ;
-echo '</div>';
-echo '<p>' . $wierszkom ["tresc"].'</p></div>';
-}
-
 ?>
-
 <!--
 <h2>Dobierz własne kolory strony</h2>
 <form method="post" action="index.php?plik=ustawienia">
@@ -56,7 +107,16 @@ echo '<p>' . $wierszkom ["tresc"].'</p></div>';
 <input type="submit" value="Zapisz">
 </form>
 -->
-<?php 
+<?php
+
+	$wynikkom = mysqli_query($conn, "SELECT * FROM oceny INNER JOIN uzytkownicy WHERE oceny.idus=uzytkownicy.iduser AND idus=$iduser order by datadod desc LIMIT $pomin,$poile");
+	while ($wierszkom = mysqli_fetch_array($wynikkom))
+	{
+		echo '<a href="index.php?plik=opis&nr='.$wierszkom ["idks"].'" target="_blank"><div class="ocena">
+			<div class="headerocena">' . $wierszkom ["user"].'<span style="float: right;"> ' . $wierszkom ["datadod"].'</span>' ;
+	echo '</div>';
+	echo '<p>' . $wierszkom ["tresc"].'</p></div></a>';
+}
 
 if($ilegrup>1){
 
@@ -76,7 +136,8 @@ if($ilegrup>1){
 ?>
 </div>
 <?php
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    /*
+	if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		$kol_pdst= $_POST["kol_pdst"];
 		$kol_ciem= $_POST["kol_ciem"];
 		$kol_jas= $_POST["kol_jas"];
@@ -86,4 +147,5 @@ if($ilegrup>1){
 		setcookie(kol_ciem, $kol_ciem);
 		setcookie(kol_jas, $kol_jas);
     }
+	*/
 ?>

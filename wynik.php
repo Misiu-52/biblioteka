@@ -75,11 +75,13 @@ while ($wiersz = mysqli_fetch_array($wynik))
 </div>
 <?php
 
+if($ilegrup>1){
+
 if ($grupa>1) {echo '<A HREF="index.php?plik=wynik&grupa=' . ($grupa-1) . '"><Button><</Button></A> ';}
 for ($j=0; $j<$ilegrup; $j++)
 {
 	echo '<A HREF=index.php?plik=wynik&grupa=' . ($j+1) . '><Button>' . ($j+1). '</Button></A> ';
 }
-if ($grupa<$ilegrup) {echo '<A HREF="index.php?plik=wynik&grupa=' . ($grupa+1) . '"><Button>></Button></A>';}
+if ($grupa<$ilegrup) {echo '<A HREF="index.php?plik=wynik&grupa=' . ($grupa+1) . '"><Button>></Button></A>';}}
 ?>
 </center>
