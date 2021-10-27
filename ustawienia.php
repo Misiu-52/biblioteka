@@ -4,9 +4,38 @@
 		header('Location: index.php?plik=home');
 		exit();
 	}
+	if (!isset ($_GET['grupa'])) {$grupa=1;}
+		else {$grupa=$_GET['grupa'];}
+
 ?>
 
-Witaj <?php echo $_SESSION['user']?>
+<div id="opis">
+<h3>Witaj <b><?php echo $_SESSION['user']?></b></h3>
+
+<?php
+
+$iduser=$_SESSION['id'];
+
+require("conf.php");
+
+echo '<h2>Twoje oceny</h2>';
+
+$wynik = mysqli_query($conn, "select * from oceny");
+$ile = mysqli_num_rows($wynik);
+$poile=2;
+$pomin=($grupa-1)*$poile;
+$ilegrup = ceil($ile/$poile);
+
+$wynikkom = mysqli_query($conn, "SELECT * FROM oceny INNER JOIN uzytkownicy WHERE oceny.idus=uzytkownicy.iduser AND idus=$iduser order by datadod desc LIMIT $pomin,$poile");
+while ($wierszkom = mysqli_fetch_array($wynikkom))
+{
+    echo '<div class="ocena">
+        <div class="headerocena">' . $wierszkom ["user"].'<span style="float: right;"> ' . $wierszkom ["datadod"].'</span>' ;
+echo '</div>';
+echo '<p>' . $wierszkom ["tresc"].'</p></div>';
+}
+
+?>
 
 <!--
 <h2>Dobierz własne kolory strony</h2>
@@ -27,13 +56,30 @@ Witaj <?php echo $_SESSION['user']?>
 <input type="submit" value="Zapisz">
 </form>
 -->
+<?php 
+
+if($ilegrup>1){
+
+	if($grupa>1) {echo '<a href="index.php?plik=ustawienia&grupa='.($grupa-1).'"><button><</button></a>';}
+	for ($j=0; $j<$ilegrup; $j++)
+	{
+
+
+		echo '<a href=index.php?plik=ustawienia&grupa=' . ($j+1) . '><button>' . ($j+1) . '</button></a>';
+
+	}
+	if($grupa<$ilegrup) {echo '<a href="index.php?plik=ustawienia&grupa='.($grupa+1).'"><button>></button></a>';}
+
+}
+
+
+?>
+</div>
 <?php
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-		require("conf.php");
 		$kol_pdst= $_POST["kol_pdst"];
 		$kol_ciem= $_POST["kol_ciem"];
 		$kol_jas= $_POST["kol_jas"];
-		$iduser = $_SESSION['id'];
 		$sql = mysqli_query($conn, "UPDATE `uzytkownicy` SET `kol_pdst` = '$kol_pdst', `kol_ciem` = '$kol_ciem', `kol_jas` = '$kol_jas' WHERE `uzytkownicy`.`iduser` = $iduser;");
 		echo '<h2>Zmieniono styl</h2>';
 		setcookie(kol_pdst, $kol_pdst);
