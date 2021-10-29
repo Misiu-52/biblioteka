@@ -38,7 +38,7 @@
 	<body>
 	<img id="logo"src="img/0.png"/>
 	<h1>Księgarnia</h1>
-
+	<button id="btnScrollToTop"><i class="fas fa-arrow-up"></i></button>
 		<?php
 		include("menu.php");
 
@@ -59,4 +59,18 @@
 		}
 		?>
 	</body>
+
+	<script>
+const btnScrollToTop = document.querySelector("#btnScrollToTop")
+
+btnScrollToTop.addEventListener("click", function() {
+    
+    window.scrollTo({
+        top:0,
+        left:0,
+        behavior: "smooth"
+
+    })
+});
+</script>
 </html>

@@ -40,7 +40,7 @@ $wynik = mysqli_query($conn, "SELECT * from oceny WHERE idks=$nr;");
 $ile = mysqli_num_rows($wynik);
 echo '<h3>Liczba ocen: ';
 echo  $ile .'</h3>';
-$poile=2;
+$poile=4;
 $pomin=($grupa-1)*$poile;
 $ilegrup = ceil($ile/$poile);
 
