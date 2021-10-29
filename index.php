@@ -33,7 +33,7 @@
 }
 */
 ?>
-		</style>
+	</style>
 	</head>
 	<body>
 	<img id="logo"src="img/0.png"/>
