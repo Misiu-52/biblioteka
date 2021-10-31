@@ -37,6 +37,7 @@ body
   /* Handle */
   ::-webkit-scrollbar-thumb {
 	background: var(--green); 
+	border: 2px solid var(--greendark);
   }
   
   /* Handle on hover */

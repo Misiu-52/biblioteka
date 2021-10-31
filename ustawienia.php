@@ -72,6 +72,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	if (move_uploaded_file($_FILES["xobraz"]["tmp_name"], $target_file)) {
 		
 		echo "Obraz ". htmlspecialchars( basename( $_FILES["xobraz"]["name"])). " wysłano.";
+		header("Refresh:0");
+
 		} 
 	else {
 		echo "Wysyłanie się nie powiodło.";
@@ -84,7 +86,7 @@ $wynik = mysqli_query($conn, "SELECT * from oceny WHERE idus=$iduser;");
 $ile = mysqli_num_rows($wynik);
 echo '<h3>Wstawiłeś ocen: ';
 echo  $ile .'</h3>';
-$poile=2;
+$poile=4;
 $pomin=($grupa-1)*$poile;
 $ilegrup = ceil($ile/$poile);
 ?>
@@ -112,8 +114,17 @@ $ilegrup = ceil($ile/$poile);
 	$wynikkom = mysqli_query($conn, "SELECT * FROM oceny INNER JOIN uzytkownicy WHERE oceny.idus=uzytkownicy.iduser AND idus=$iduser order by datadod desc LIMIT $pomin,$poile");
 	while ($wierszkom = mysqli_fetch_array($wynikkom))
 	{
+		$idus=$wierszkom ["idus"];
+		$roz = '.jpg';
+		if (file_exists("img/user/$idus$roz")) {
+			$idusjpg=$idus.$roz;
+		}
+		else {
+			$idusjpg="0.jpg";
+		}
+
 		echo '<a href="index.php?plik=opis&nr='.$wierszkom ["idks"].'" target="_blank"><div class="ocena">
-			<div class="headerocena">' . $wierszkom ["user"].'<span style="float: right;"> ' . $wierszkom ["datadod"].'</span>' ;
+			<div class="headerocena"><img src="img/user/'.$idusjpg.'" style="border-radius:50%; vertical-align:middle;" width="40px" height="40px"/>   ' . $wierszkom ["user"].'<span style="float: right;"> ' . $wierszkom ["datadod"].'</span>' ;
 	echo '</div>';
 	echo '<p>' . $wierszkom ["tresc"].'</p></div></a>';
 }

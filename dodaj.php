@@ -72,7 +72,7 @@ Gatunek:
 <select name="xgat">
 <?php
 require("conf.php");
-$wynik = mysqli_query($conn, "select * from gatunki ORDER By gat");
+$wynik = mysqli_query($conn, "SELECT * FROM gatunki ORDER By gat");
 while ($wiersz = mysqli_fetch_array($wynik))
 {
 	echo '<option value="' . $wiersz["lp"] . '">' . $wiersz["gat"] . '</option>';}
@@ -82,7 +82,7 @@ while ($wiersz = mysqli_fetch_array($wynik))
 <select name="xwyd">
 <?php
 require("conf.php");
-$wynik = mysqli_query($conn, "select * from wyd ORDER By wyd");
+$wynik = mysqli_query($conn, "SELECT * FROM wyd ORDER By wyd");
 while ($wiersz = mysqli_fetch_array($wynik))
 {
 	echo '<option value="' . $wiersz["idwyd"] . '">' . $wiersz["wyd"] . '</option>';}
@@ -92,7 +92,7 @@ while ($wiersz = mysqli_fetch_array($wynik))
 <select name="xokl">
 <?php
 require("conf.php");
-$wynik = mysqli_query($conn, "select * from okladka ORDER By okl");
+$wynik = mysqli_query($conn, "SELECT * FROM okladka ORDER By okl");
 while ($wiersz = mysqli_fetch_array($wynik))
 {
 	echo '<option value="' . $wiersz["idokl"] . '">' . $wiersz["okl"] . '</option>';}
