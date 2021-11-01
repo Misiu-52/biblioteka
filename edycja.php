@@ -1,9 +1,35 @@
 <?php
 require("conf.php");
-$nr= $_GET["nr"];
-$wynik = mysqli_query($conn, "select * from ksiazki, gatunki WHERE ksiazki.gatunek= gatunki.lp and id=$nr");
-$wiersz = mysqli_fetch_array($wynik);
 
+        if ($_SERVER["REQUEST_METHOD"] == "POST" and isset($_GET["nr"])) {
+			$nr= $_GET["nr"];
+			require("conf.php");
+			$xpol= $_POST["xpol"];
+			$xorg= $_POST["xorg"];
+			$xautor= $_POST["xautor"];
+			$xdatawyd= $_POST["xdatawyd"];
+			$xgat= $_POST["xgat"];
+			$xwyd= $_POST["xwyd"];
+			$xokl= $_POST["xokl"];
+			$xcena= $_POST["xcena"];
+			$xopis= $_POST["xopis"];
+			$sql = mysqli_query($conn, "UPDATE ksiazki SET tyt_pol='$xpol', tyt_org='$xorg', autor='$xautor', gatunek='$xgat', wydawnictwo='$xwyd', opis='$xopis', okladka='$xokl',cena='$xcena', datawyd='$xdatawyd' WHERE id='$nr'") or die(mysqli_error($conn));
+			echo '<center><div class="warn"><i class="fas fa-exclamation-circle"></i> Edytowano książkę '.$xpol.'</div></center>';
+        }
+
+		if ($_SERVER["REQUEST_METHOD"] == "POST" and isset($_GET["ocena"])) {
+			$ocena= $_GET["ocena"];
+			require("conf.php");
+			$xtresc= $_POST["xtresc"];
+			$sql = mysqli_query($conn, "UPDATE oceny SET tresc='$xtresc' WHERE idoc='$ocena'") or die(mysqli_error($conn));
+			echo '<center><div class="warn"><i class="fas fa-exclamation-circle"></i> Edytowano ocenę</div></center>';
+        }
+
+if(isset($_GET["nr"])){
+	$nr= $_GET["nr"];
+
+	$wynik = mysqli_query($conn, "SELECT * FROM ksiazki, gatunki WHERE ksiazki.gatunek= gatunki.lp AND id=$nr");
+	$wiersz = mysqli_fetch_array($wynik);
 ?>
 
 <h2>Edycja książki</h2>
@@ -17,7 +43,7 @@ Gatunek:
 <select name="xgat">
 <?php
 require("conf.php");
-$wynikg = mysqli_query($conn, "select * from gatunki ORDER By gat");
+$wynikg = mysqli_query($conn, "SELECT * FROM gatunki ORDER BY gat");
 while ($wierszg = mysqli_fetch_array($wynikg))
 {
 	echo '<option value="' . $wierszg["lp"] . '" ';	
@@ -30,7 +56,7 @@ echo	'>' . $wierszg["gat"] . '</option>';
 <select name="xwyd">
 <?php
 require("conf.php");
-$wynikw = mysqli_query($conn, "select * from wyd ORDER By wyd");
+$wynikw = mysqli_query($conn, "SELECT * FROM wyd ORDER BY wyd");
 while ($wierszw = mysqli_fetch_array($wynikw))
 {
 	echo '<option value="' . $wierszw["idwyd"] . '" ';	
@@ -43,14 +69,14 @@ echo	'>' . $wierszw["wyd"] . '</option>';
 <select name="xokl">
 <?php
 require("conf.php");
-$wyniko = mysqli_query($conn, "select * from okladka ORDER By okl");
+$wyniko = mysqli_query($conn, "SELECT * FROM okladka ORDER BY okl");
 while ($wierszo = mysqli_fetch_array($wyniko))
 {
 	echo '<option value="' . $wierszo["idokl"] . '" ';	
 if ($wierszo["okl"]==$wierszo["idokl"])	{echo ' selected'; }
 echo	'>' . $wierszo["okl"] . '</option>';
 }
-$wynik = mysqli_query($conn, "select * from ksiazki, gatunki WHERE ksiazki.gatunek= gatunki.lp and id=$nr");
+$wynik = mysqli_query($conn, "SELECT * FROM ksiazki, gatunki WHERE ksiazki.gatunek= gatunki.lp AND id=$nr");
 $wiersz = mysqli_fetch_array($wynik);
 ?>
 </select></p>
@@ -59,20 +85,36 @@ Cena: <input type="number" name="xcena" min="0" max="1000" value="<?php echo $wi
 <Br><textarea required name="xopis" cols="70" rows="5"><?php echo $wiersz["opis"]; ?></textarea>
 <P><input type="submit" value="Edytuj">
 </form>
+<?php
+}
+
+if(isset($_GET["ocena"])){
+	$ocena= $_GET["ocena"];
+
+	$wynik = mysqli_query($conn, "SELECT * FROM oceny, uzytkownicy WHERE oceny.idus= uzytkownicy.iduser AND idoc=$ocena");
+	$wiersz = mysqli_fetch_array($wynik);
+
+    $idus=$wiersz ["idus"];
+    $roz = '.jpg';
+    if (file_exists("img/user/$idus$roz")) {
+        $idusjpg=$idus.$roz;
+    }
+    else {
+        $idusjpg="0.jpg";
+    }
+
+    echo '<center><div class="ocena" style="width:60vw;">
+        <div class="headerocena"><img src="img/user/'.$idusjpg.'" style="border-radius:50%; vertical-align:middle;" width="40px" height="40px"/>   ' . $wiersz ["user"].'<span style="float: right;"> ' . $wiersz ["datadod"].'</span>' ;
+echo '</div>';
+echo '<p>' . $wiersz ["tresc"].'</p></div></center>';
+
+?>
+	<form method="post" action="index.php?plik=edycja&ocena=<?php echo $ocena; ?>">
+	<Br><textarea required name="xtresc" cols="70" rows="5"><?php echo $wiersz ["tresc"]; ?></textarea>
+	<P><input type="submit" value="Edytuj">
+	</form>
 
 <?php
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-			require("conf.php");
-			$xpol= $_POST["xpol"];
-			$xorg= $_POST["xorg"];
-			$xautor= $_POST["xautor"];
-			$xdatawyd= $_POST["xdatawyd"];
-			$xgat= $_POST["xgat"];
-			$xwyd= $_POST["xwyd"];
-			$xokl= $_POST["xokl"];
-			$xcena= $_POST["xcena"];
-			$xopis= $_POST["xopis"];
-			$sql = mysqli_query($conn, "UPDATE ksiazki SET tyt_pol='$xpol', tyt_org='$xorg', autor='$xautor', gatunek='$xgat', wydawnictwo='$xwyd', opis='$xopis', okladka='$xokl',cena='$xcena', datawyd='$xdatawyd' WHERE id='$nr'") or die(mysqli_error($conn));
-			echo '<h2>Edytowano książkę <font color="black">'.$xpol.'</font></h2>';
-        }
+
+}
 ?>

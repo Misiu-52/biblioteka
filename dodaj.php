@@ -50,7 +50,7 @@
 				
 				echo "Obraz ". htmlspecialchars( basename( $_FILES["xobraz"]["name"])). " wysłano.";
 
-				$sql = mysqli_query($conn, "insert into ksiazki values('','$xpol','$xorg','$xautor','$xgat','$xwyd','$xopis','$xokl','$xcena','$xdatawyd')");
+				$sql = mysqli_query($conn, "INSERT INTO ksiazki VALUES('','$xpol','$xorg','$xautor','$xgat','$xwyd','$xopis','$xokl','$xcena','$xdatawyd')");
 				} 
 			else {
 				echo "Wysyłanie się nie powiodło.";

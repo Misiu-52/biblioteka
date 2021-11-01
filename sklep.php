@@ -5,13 +5,13 @@ if (!isset ($_GET['grupa'])) {$grupa=1;}
 	else {$grupa=$_GET['grupa'];}
 
 require("conf.php");
-$wynik = mysqli_query($conn, "select * from ksiazki");
+$wynik = mysqli_query($conn, "SELECT * FROM ksiazki");
 $ile = mysqli_num_rows($wynik);
 $poile=6;
 $pomin=($grupa-1)*$poile;
 $ilegrup = ceil($ile/$poile);
 
-$wynik = mysqli_query($conn, "select * from ksiazki order by cena desc LIMIT $pomin,$poile");
+$wynik = mysqli_query($conn, "SELECT * FROM ksiazki ORDER BY cena DESC LIMIT $pomin,$poile");
 $i=$pomin+1;
 $k=1;
 ?>
@@ -37,15 +37,10 @@ if($ilegrup>1){
 	if($grupa>1) {echo '<a href="index.php?plik=sklep&grupa='.($grupa-1).'"><button><</button></a>';}
 	for ($j=0; $j<$ilegrup; $j++)
 	{
-
-
 		echo '<a href=index.php?plik=sklep&grupa=' . ($j+1) . '><button>' . ($j+1) . '</button></a>';
-
 	}
 	if($grupa<$ilegrup) {echo '<a href="index.php?plik=sklep&grupa='.($grupa+1).'"><button>></button></a>';}
 
 }
-
-
 ?>
 </p>

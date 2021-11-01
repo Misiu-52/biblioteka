@@ -28,7 +28,7 @@ echo'</font></b>' ;
 echo ', gatunek: ';
 
 require("conf.php");
-$wynik = mysqli_query($conn, "select * from gatunki where lp=$xgat");
+$wynik = mysqli_query($conn, "SELECT * FROM gatunki WHERE lp=$xgat");
 $wiersz = mysqli_fetch_array($wynik);
 
 echo '<b>';

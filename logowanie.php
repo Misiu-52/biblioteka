@@ -5,6 +5,10 @@
 		header('Location: index.php?plik=ustawienia');
 		exit();
 	}
+
+  if(isset($_GET['rejestracja'])) {
+    echo '<center><div class="info"><i class="fas fa-info-circle"></i> Po rejestracji czas na logowanie</div></center>';
+  }
 ?>
 
 <form method="post" action="index.php?plik=zaloguj">

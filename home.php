@@ -5,7 +5,7 @@
 		<div class="wystawa">
 		<?php
 		require("conf.php");
-		$wynik = mysqli_query($conn, "select * from ksiazki order by id desc limit 4");
+		$wynik = mysqli_query($conn, "SELECT * FROM ksiazki ORDER BY id DESC LIMIT 4");
 		$i=1;
 		while ($wiersz = mysqli_fetch_array($wynik))
 			{
@@ -23,7 +23,7 @@
 		<div class="wystawa">
 		<?php
 		require("conf.php");
-		$wynik = mysqli_query($conn, "select * from ksiazki order by cena desc limit 4");
+		$wynik = mysqli_query($conn, "SELECT * FROM ksiazki ORDER BY cena DESC LIMIT 4");
 
 		while ($wiersz = mysqli_fetch_array($wynik))
 			{

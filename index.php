@@ -7,10 +7,19 @@
 	if (!isset($_SESSION['zalogowany'])) {
 		$_SESSION['zalogowany']=FALSE;
 	}
+
+	if (!isset($_SESSION['admin'])) {
+		$_SESSION['admin']=0;
+	}
+
+	if(!isset($_GET['plik'])) {$plik = 'home';}
+	else{$plik = $_GET['plik'];}
+	$roz = '.php';
+
 	?>
 
 	<head>
-		<title>Księgarnia</title>
+		<title>Księgarnia <?php //echo ucfirst($plik);?></title>
 		<link rel="icon" href="img/0.png" type="image/x-icon"/>
 		<link rel="shortcut icon" href="img/0.png" type="image/x-icon"/>
 		<link rel="stylesheet" type="text/css" href="main.css">
@@ -38,13 +47,9 @@
 	<body>
 	<img id="logo"src="img/0.png"/>
 	<h1>Księgarnia</h1>
-	<button id="btnScrollToTop"><i class="fas fa-arrow-up"></i></button>
+	<button id="btnScrollToTop"><i class="fas fa-chevron-up"></i></button>
 		<?php
 		include("menu.php");
-
-		if(!isset($_GET['plik'])) {$plik = 'home';}
-		else{$plik = $_GET['plik'];}
-		$roz = '.php';
 
 		if (file_exists("$plik$roz")) {
 			include "$plik$roz";

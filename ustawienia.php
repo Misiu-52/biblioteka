@@ -10,7 +10,7 @@
 ?>
 
 <div id="opis">
-<h3>Witaj <b><?php echo $_SESSION['user']?></b></h3>
+<h3>Witaj <b><?php echo $_SESSION['user']?></b> w Księgarnii</h3>
 
 <?php
 

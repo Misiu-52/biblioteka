@@ -22,6 +22,7 @@
 				$wiersz = mysqli_fetch_array($wynik);
 				$_SESSION['id'] = $wiersz['iduser'];
 				$_SESSION['user'] = $wiersz['user'];
+				$_SESSION['admin'] = $wiersz['admin'];
 				$_SESSION['kol_pdst'] = $wiersz['kol_pdst'];
 				$_SESSION['kol_ciem'] = $wiersz['kol_ciem'];
 				$_SESSION['kol_jas'] = $wiersz['kol_jas'];

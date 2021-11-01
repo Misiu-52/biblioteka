@@ -6,7 +6,7 @@
 <option value="0">wszytskie</option>
 <?php
 require("conf.php");
-$wynik = mysqli_query($conn, "select * from gatunki ORDER By gat");
+$wynik = mysqli_query($conn, "SELECT * FROM gatunki ORDER BY gat");
 while ($wiersz = mysqli_fetch_array($wynik))
 {
 echo '<option value="' . $wiersz["lp"] . '">' . $wiersz["gat"] . '</option>';
@@ -18,7 +18,7 @@ Wydawnictwo: <select name="xwyd">
 <option value="0">wszytskie</option>
 <?php
 require("conf.php");
-$wynik = mysqli_query($conn, "select * from wyd ORDER By wyd");
+$wynik = mysqli_query($conn, "SELECT * FROM wyd ORDER BY wyd");
 while ($wiersz = mysqli_fetch_array($wynik))
 {
 echo '<option value="' . $wiersz["idwyd"] . '">' . $wiersz["wyd"] . '</option>';

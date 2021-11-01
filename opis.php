@@ -57,7 +57,9 @@ while ($wierszkom = mysqli_fetch_array($wynikkom))
     }
 
     echo '<div class="ocena">
-        <div class="headerocena"><img src="img/user/'.$idusjpg.'" style="border-radius:50%; vertical-align:middle;" width="40px" height="40px"/>   ' . $wierszkom ["user"].'<span style="float: right;"> ' . $wierszkom ["datadod"].'</span>' ;
+        <div class="headerocena"><img src="img/user/'.$idusjpg.'" style="border-radius:50%; vertical-align:middle;" width="40px" height="40px"/>   ' . $wierszkom ["user"].'<span style="float: right;"> <a href="index.php?plik=usun&ocena=' . $wierszkom ["idoc"]. '"><button><i class="fas fa-trash-alt"></i></button></a>
+        <a href="index.php?plik=edycja&ocena=' . $wierszkom ["idoc"] . '"><button type="button"><i class="fas fa-edit"></i></button></a>
+        ' . $wierszkom ["datadod"].'</span>' ;
 echo '</div>';
 echo '<p>' . $wierszkom ["tresc"].'</p></div>';
 }
@@ -87,5 +89,9 @@ if (($_SESSION['zalogowany'])== TRUE)
     echo'<Br><textarea name="xtresc" cols="70" rows="5"></textarea>';
     echo'<P><input type="submit" value="Dodaj ocenę">';
 	echo'<input type="reset" value="Wyczyść">';
+}
+else {
+    echo'<h3>Aby dodać ocenę musisz być zalogowany</h3>';
+
 }
 ?>
