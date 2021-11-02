@@ -4,6 +4,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 echo '<h2>Ocena dodana</h2>';
 require("conf.php");
 $nr= $_GET["nr"];
+
 $xtresc= $_POST["xtresc"];
 $xuser= $_SESSION["id"];
 $sql = mysqli_query($conn, "insert into oceny values('','$nr','$xtresc','$xuser', now())");}
@@ -24,7 +25,7 @@ echo '<div class="imgside"><h1>'.  $wiersz["tyt_pol"] . '<br>('.  $wiersz["tyt_o
 <h2>Oprawa: '.  $wiersz["okl"] .'</h2>
 <button>'. $wiersz["cena"] .' zł Kup teraz</button>';
 
-if (($_SESSION['zalogowany'])== TRUE)
+if (($_SESSION['zalogowany'])== TRUE )
 {
     echo'<a href="index.php?plik=usun&nr=' . $nr . '"><button><i class="fas fa-trash-alt"></i></button></a>';
     echo' <a href="index.php?plik=edycja&nr=' . $nr . '"><button type="button"><i class="fas fa-edit"></i></button></a>';
@@ -56,12 +57,20 @@ while ($wierszkom = mysqli_fetch_array($wynikkom))
         $idusjpg="0.jpg";
     }
 
-    echo '<div class="ocena">
-        <div class="headerocena"><img src="img/user/'.$idusjpg.'" style="border-radius:50%; vertical-align:middle;" width="40px" height="40px"/>   ' . $wierszkom ["user"].'<span style="float: right;"> <a href="index.php?plik=usun&ocena=' . $wierszkom ["idoc"]. '"><button><i class="fas fa-trash-alt"></i></button></a>
-        <a href="index.php?plik=edycja&ocena=' . $wierszkom ["idoc"] . '"><button type="button"><i class="fas fa-edit"></i></button></a>
-        ' . $wierszkom ["datadod"].'</span>' ;
-echo '</div>';
-echo '<p>' . $wierszkom ["tresc"].'</p></div>';
+        echo '<div class="ocena">
+        <div class="headerocena"><img src="img/user/'.$idusjpg.'" style="border-radius:50%; vertical-align:middle;" width="40px" height="40px"/>   ' . $wierszkom ["user"];
+        if($wierszkom ["adminus"]==1){
+            echo' <i class="fas fa-user-astronaut"></i>';
+        }
+        echo '<span style="float: right;"> ';
+        
+        if($_SESSION['admin']==1 or $wierszkom ["idus"]==$_SESSION['id']){
+        echo '<a href="index.php?plik=usun&ocena=' . $wierszkom ["idoc"]. '"><button><i class="fas fa-trash-alt"></i></button></a>
+        <a href="index.php?plik=edycja&ocena=' . $wierszkom ["idoc"] . '"><button type="button"><i class="fas fa-edit"></i></button></a>'; 
+        }
+        echo $wierszkom ["datadod"].'</span>' ;
+        echo '</div>';
+        echo '<p>' . $wierszkom ["tresc"].'</p></div>';
 }
 
 if($ilegrup>1){

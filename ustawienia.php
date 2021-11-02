@@ -124,9 +124,13 @@ $ilegrup = ceil($ile/$poile);
 		}
 
 		echo '<a href="index.php?plik=opis&nr='.$wierszkom ["idks"].'" target="_blank"><div class="ocena">
-			<div class="headerocena"><img src="img/user/'.$idusjpg.'" style="border-radius:50%; vertical-align:middle;" width="40px" height="40px"/>   ' . $wierszkom ["user"].'<span style="float: right;"> ' . $wierszkom ["datadod"].'</span>' ;
-	echo '</div>';
-	echo '<p>' . $wierszkom ["tresc"].'</p></div></a>';
+			<div class="headerocena"><img src="img/user/'.$idusjpg.'" style="border-radius:50%; vertical-align:middle;" width="40px" height="40px"/>   ' . $wierszkom ["user"];
+			if($wierszkom ["adminus"]==1){
+				echo' <i class="fas fa-user-astronaut"></i>';
+			}
+		echo'<span style="float: right;"> ' . $wierszkom ["datadod"].'</span>' ;
+		echo '</div>';
+		echo '<p>' . $wierszkom ["tresc"].'</p></div></a>';
 }
 
 if($ilegrup>1){

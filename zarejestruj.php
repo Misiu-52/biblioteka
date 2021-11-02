@@ -44,7 +44,7 @@
 				
 				if ($wszystko_OK==true)
 				{
-                    $rejestracja=mysqli_query($conn, "INSERT INTO `uzytkownicy`(`iduser`, `user`, `pass`, `admin`, `kol_pdst`, `kol_ciem`, `kol_jas`) VALUES (DEFAULT,'$login','$haslo1','0','0','0','0')");
+                    $rejestracja=mysqli_query($conn, "INSERT INTO `uzytkownicy`(`iduser`, `user`, `pass`, `adminus`, `kol_pdst`, `kol_ciem`, `kol_jas`) VALUES (DEFAULT,'$login','$haslo1','0','0','0','0')");
 					header('Location: index.php?plik=logowanie&rejestracja=1');
 				}				
 ?>

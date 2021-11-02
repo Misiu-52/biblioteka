@@ -25,6 +25,39 @@ require("conf.php");
 			echo '<center><div class="warn"><i class="fas fa-exclamation-circle"></i> Edytowano ocenę</div></center>';
         }
 
+		if ($_SERVER["REQUEST_METHOD"] == "POST" and isset($_GET["user"])) {
+			$user= $_GET["user"];
+			require("conf.php");
+			$xuser= $_POST["xuser"];
+			$xpass= $_POST["xpass"];
+			$xadmin= $_POST["xadmin"];
+			$sql = mysqli_query($conn, "UPDATE uzytkownicy SET user='$xuser', pass='$xpass', adminus='$xadmin' WHERE iduser='$user'") or die(mysqli_error($conn));
+			echo '<center><div class="warn"><i class="fas fa-exclamation-circle"></i> Edytowano użytkownika</div></center><br>';
+        }
+		if ($_SERVER["REQUEST_METHOD"] == "POST" and isset($_GET["gat"])) {
+			$gat= $_GET["gat"];
+			require("conf.php");
+			$xgat= $_POST["xgat"];
+			$sql = mysqli_query($conn, "UPDATE gatunki SET gat='$xgat' WHERE lp='$gat'") or die(mysqli_error($conn));
+			echo '<center><div class="warn"><i class="fas fa-exclamation-circle"></i> Edytowano gatunek</div></center><br>';
+        }
+
+		if ($_SERVER["REQUEST_METHOD"] == "POST" and isset($_GET["okl"])) {
+			$okl= $_GET["okl"];
+			require("conf.php");
+			$xokl= $_POST["xokl"];
+			$sql = mysqli_query($conn, "UPDATE okladka SET okl='$xokl' WHERE idokl='$okl'") or die(mysqli_error($conn));
+			echo '<center><div class="warn"><i class="fas fa-exclamation-circle"></i> Edytowano okładkę</div></center><br>';
+        }
+
+		if ($_SERVER["REQUEST_METHOD"] == "POST" and isset($_GET["wyd"])) {
+			$wyd= $_GET["wyd"];
+			require("conf.php");
+			$xwyd= $_POST["xwyd"];
+			$sql = mysqli_query($conn, "UPDATE wyd SET wyd='$xwyd' WHERE idwyd='$wyd'") or die(mysqli_error($conn));
+			echo '<center><div class="warn"><i class="fas fa-exclamation-circle"></i> Edytowano wydawnictwo</div></center><br>';
+        }
+
 if(isset($_GET["nr"])){
 	$nr= $_GET["nr"];
 
@@ -104,13 +137,119 @@ if(isset($_GET["ocena"])){
     }
 
     echo '<center><div class="ocena" style="width:60vw;">
-        <div class="headerocena"><img src="img/user/'.$idusjpg.'" style="border-radius:50%; vertical-align:middle;" width="40px" height="40px"/>   ' . $wiersz ["user"].'<span style="float: right;"> ' . $wiersz ["datadod"].'</span>' ;
-echo '</div>';
-echo '<p>' . $wiersz ["tresc"].'</p></div></center>';
+        <div class="headerocena"><img src="img/user/'.$idusjpg.'" style="border-radius:50%; vertical-align:middle;" width="40px" height="40px"/>   ' . $wiersz ["user"];
+		if($wiersz ["adminus"]==1){
+			echo' <i class="fas fa-user-astronaut"></i>';
+		}
+	echo '<span style="float: right;"> ' . $wiersz ["datadod"].'</span>' ;
+	echo '</div>';
+	echo '<p>' . $wiersz ["tresc"].'</p></div></center>';
 
 ?>
 	<form method="post" action="index.php?plik=edycja&ocena=<?php echo $ocena; ?>">
 	<Br><textarea required name="xtresc" cols="70" rows="5"><?php echo $wiersz ["tresc"]; ?></textarea>
+	<P><input type="submit" value="Edytuj">
+	</form>
+
+<?php
+
+}
+
+if(isset($_GET["user"])){
+	$user= $_GET["user"];
+
+	$wynik = mysqli_query($conn, "SELECT * FROM uzytkownicy WHERE iduser=$user");
+	$wiersz = mysqli_fetch_array($wynik);
+
+    $idus=$wiersz ["iduser"];
+    $roz = '.jpg';
+    if (file_exists("img/user/$idus$roz")) {
+        $idusjpg=$idus.$roz;
+    }
+    else {
+        $idusjpg="0.jpg";
+    }
+
+	echo '<center><div class="profil" style="width:500px; margin:0px;"><img src="img/user/'.$idusjpg.'" style="border-radius:50%; vertical-align:middle;" width="40px" height="40px"/>   ' . $wiersz ["user"];
+	if($wiersz ["adminus"]==1){
+		echo' <i class="fas fa-user-astronaut"></i>';
+	}
+	echo '<span style="float: right;"></span>' ;
+	echo '</div></center>';
+
+?>
+	<form method="post" action="index.php?plik=edycja&user=<?php echo $user; ?>"><br>
+	Login
+	<Br><input type="text"required name="xuser" value="<?php echo $wiersz ["user"]; ?>"><Br>
+	Hasło
+	<Br><input type="password"required name="xpass" value="<?php echo $wiersz ["pass"]; ?>"><Br>
+	Admin <input type="checkbox" name="xadmin" <?php if ($wiersz ["user"]==1) echo "checked";?> value="1">
+	<P><input type="submit" value="Edytuj">
+	</form>
+
+<?php
+
+}
+
+if(isset($_GET["gat"])){
+	$gat= $_GET["gat"];
+
+	$wynik = mysqli_query($conn, "SELECT * FROM gatunki WHERE lp=$gat");
+	$wiersz = mysqli_fetch_array($wynik);
+
+	echo '<center><div class="profil" style="width:500px; margin:0px;">   ' . $wiersz ["gat"];
+
+	echo '<span style="float: right;"></span>';
+	echo '</div></center>';
+
+?>
+	<form method="post" action="index.php?plik=edycja&gat=<?php echo $gat; ?>"><br>
+	Nazwa gatunku
+	<Br><input type="text" required name="xgat" value="<?php echo $wiersz ["gat"]; ?>"><Br>
+	<P><input type="submit" value="Edytuj">
+	</form>
+
+<?php
+
+}
+
+if(isset($_GET["okl"])){
+	$okl= $_GET["okl"];
+
+	$wynik = mysqli_query($conn, "SELECT * FROM okladka WHERE idokl=$okl");
+	$wiersz = mysqli_fetch_array($wynik);
+
+	echo '<center><div class="profil" style="width:500px; margin:0px;">   ' . $wiersz ["okl"];
+
+	echo '<span style="float: right;"></span>';
+	echo '</div></center>';
+
+?>
+	<form method="post" action="index.php?plik=edycja&okl=<?php echo $okl; ?>"><br>
+	Typ okładki
+	<Br><input type="text" required name="xokl" value="<?php echo $wiersz ["okl"]; ?>"><Br>
+	<P><input type="submit" value="Edytuj">
+	</form>
+
+<?php
+
+}
+
+if(isset($_GET["wyd"])){
+	$wyd= $_GET["wyd"];
+
+	$wynik = mysqli_query($conn, "SELECT * FROM wyd WHERE idwyd=$wyd");
+	$wiersz = mysqli_fetch_array($wynik);
+
+	echo '<center><div class="profil" style="width:500px; margin:0px;">   ' . $wiersz ["wyd"];
+
+	echo '<span style="float: right;"></span>';
+	echo '</div></center>';
+
+?>
+	<form method="post" action="index.php?plik=edycja&wyd=<?php echo $wyd; ?>"><br>
+	Nazwa wydawnictwa
+	<Br><input type="text" required name="xwyd" value="<?php echo $wiersz ["wyd"]; ?>"><Br>
 	<P><input type="submit" value="Edytuj">
 	</form>
 
