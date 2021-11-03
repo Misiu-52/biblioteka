@@ -1,3 +1,27 @@
+<?php
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST" and isset($_POST["xgat"])) {
+        $xgat= $_POST["xgat"];
+        require("conf.php");
+        $sql = mysqli_query($conn, "INSERT INTO gatunki VALUES('','$xgat')") or die(mysqli_error($conn));
+        echo '<center><div class="suc"><i class="fas fa-check"></i> Dodano gatunek</div></center>';
+    }
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST" and isset($_POST["xokl"])) {
+        $xokl= $_POST["xokl"];
+        require("conf.php");
+        $sql = mysqli_query($conn, "INSERT INTO okladka VALUES('','$xokl')") or die(mysqli_error($conn));
+        echo '<center><div class="suc"><i class="fas fa-check"></i> Dodano typ okładki</div></center>';
+    }
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST" and isset($_POST["xwyd"])) {
+        $xwyd= $_POST["xwyd"];
+        require("conf.php");
+        $sql = mysqli_query($conn, "INSERT INTO wyd VALUES('','$xwyd')") or die(mysqli_error($conn));
+        echo '<center><div class="suc"><i class="fas fa-check"></i> Dodano wydawnictwo</div></center>';
+    }
+
+?>
 <h2>Użytkownicy</h2>
 <div class="adminpanel">
 <div class="galeriaprofil">
@@ -45,6 +69,13 @@ echo '</div>';
                 <a href="index.php?plik=edycja&gat=' . $wierszg ["lp"] . '"><button type="button"><i class="fas fa-edit"></i></button></a></span>' ;
                 echo '</div>';
             }
+
+            echo'<h3><span class="ramka">Dodaj gatunek</span></h3>';
+            echo'<form method="post" action="index.php?plik=admin">';
+            echo'<P>Nazwa gatunku:';
+            echo'<Br><input type="text" name="xgat">';
+            echo'<P><input type="submit" value="Dodaj gatunek">';
+            echo'<input type="reset" value="Wyczyść"></form>';
             ?>
         </div>
     </div>
@@ -60,6 +91,13 @@ echo '</div>';
                 <a href="index.php?plik=edycja&okl=' . $wierszo ["idokl"] . '"><button type="button"><i class="fas fa-edit"></i></button></a></span>' ;
                 echo '</div>';
             }
+
+            echo'<h3><span class="ramka">Dodaj okładkę</span></h3>';
+            echo'<form method="post" action="index.php?plik=admin">';
+            echo'<P>Typ okładki:';
+            echo'<Br><input type="text" name="xokl">';
+            echo'<P><input type="submit" value="Dodaj okładkę">';
+            echo'<input type="reset" value="Wyczyść"></form>';
             ?>
         </div>
     </div>
@@ -75,6 +113,13 @@ echo '</div>';
             <a href="index.php?plik=edycja&wyd=' . $wierszw ["idwyd"] . '"><button type="button"><i class="fas fa-edit"></i></button></a></span>' ;
             echo '</div>';
             }
+
+            echo'<h3><span class="ramka">Dodaj wydawnictwo</span></h3>';
+            echo'<form method="post" action="index.php?plik=admin">';
+            echo'<P>Nazwa wydawnictwa:';
+            echo'<Br><input type="text" name="xwyd">';
+            echo'<P><input type="submit" value="Dodaj wydawnictwo">';
+            echo'<input type="reset" value="Wyczyść"></form>';
             ?>
         </div>
     </div>
