@@ -13,10 +13,10 @@
 
 <form method="post" action="index.php?plik=zaloguj">
   <label for="login">Login:</label><br>
-  <input type="text" id="username" name="xlogin" size="23"><br>
+  <p><input type="text" id="username" name="xlogin" size="23"></p>
   <label for="pwd">Hasło:</label><br>
-  <input type="password" id="pwd" name="xhaslo" size="15"><br>
-  <input type="submit" value="Zaloguj">
+  <p><input type="password" id="pwd" name="xhaslo" size="15"></p>
+  <p><input type="submit" value="Zaloguj"></p>
 </form>
 
 <a href="index.php?plik=rejestracja"><button>Rejestracja</button></a>
