@@ -19,7 +19,7 @@
 	?>
 
 	<head>
-		<title>Księgarnia <?php //echo ucfirst($plik);?></title>
+		<title>Księgarnia</title>
 		<link rel="icon" href="img/0.png" type="image/x-icon"/>
 		<link rel="shortcut icon" href="img/0.png" type="image/x-icon"/>
 		<link rel="stylesheet" type="text/css" href="main.css">
@@ -79,3 +79,34 @@ btnScrollToTop.addEventListener("click", function() {
 });
 </script>
 </html>
+<?php
+// FUNKCJE
+function img($path, $file) {
+	$img=0;
+    if (file_exists($path.$file.'.jpg')) {
+        $img=$path.$file.'.jpg';
+    }
+    else if (file_exists($path.$file.'.jpeg')) {
+        $img=$path.$file.'.jpeg';
+    }
+    else if (file_exists($path.$file.'.png')) {
+        $img=$path.$file.'.png';
+    }
+    else if (file_exists($path.$file.'.bmp')) {
+        $img=$path.$file.'.bmp';
+    }
+    else if (file_exists($path.$file.'.gif')) {
+        $img=$path.$file.'.gif';
+    }
+	else if (file_exists($path.$file.'.webp')) {
+        $img=$path.$file.'.webp';
+    }
+	else if (file_exists($path.$file.'.svg')) {
+        $img=$path.$file.'.svg';
+    }
+    else {
+        $img='img/user/0.jpg';
+    }
+	return $img;
+}
+?>

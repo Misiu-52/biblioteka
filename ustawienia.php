@@ -18,19 +18,11 @@ $iduser=$_SESSION['id'];
 
 require("conf.php");
 
-$idus=$_SESSION['id'];
-$roz = '.jpg';
-if (file_exists("img/user/$idus$roz")) {
-	$idusjpg=$idus.$roz;
-}
-else {
-	$idusjpg="0.jpg";
-}
 echo'<h2>Zmień awatar</h2>';
-echo'<p><img style="border-radius:50%; height:300px; width:300px;"src="img/user/'.$idusjpg.'"/></p>';
+echo'<p><img style="border-radius:50%; height:300px; width:300px;"src="'.img('img/user/',$iduser).'"/></p>';
 ?>
 <form method="post" action="index.php?plik=ustawienia" enctype="multipart/form-data">
-<p><input type="file" name="xobraz"></p>
+<p><input type="file" name="xobraz" accept="image/png, image/jpeg, image/jpg, image/bmp, image/gif, image/webp, image/svg"></p>
 <P><input type="submit" value="Dodaj">
 </form>
 
@@ -56,12 +48,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	}
 	
 	// Allow certain file formats
-	if($imageFileType != "jpg") {
-	echo "Wymaganym formatem jest jpg.";
-	$uploadOk = 0;
+	if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+	&& $imageFileType != "gif" && $imageFileType != "bmp" && $imageFileType != "webp" && $imageFileType != "svg" ) {
+	  echo "Tylko obrazy w formacie JPG, JPEG, PNG, BMP, WEBP, SVG i GIF są obsługiwane.";
+	  $uploadOk = 0;
 	}
 	else{
-		$target_file=$target_dir.$iduser.".jpg";
+		switch ($imageFileType) {
+			case "jpg":
+				$target_file=$target_dir.$iduser.".jpg";
+				break;
+			case "jpeg":
+				$target_file=$target_dir.$iduser.".jpeg";
+				break;
+			case "png":
+				$target_file=$target_dir.$iduser.".png";
+				break;
+			case "gif":
+				$target_file=$target_dir.$iduser.".gif";
+				break;
+			case "bmp":
+				$target_file=$target_dir.$iduser.".bmp";
+				break;
+			case "webp":
+				$target_file=$target_dir.$iduser.".webp";
+				break;
+			case "svg":
+				$target_file=$target_dir.$iduser.".svg";
+				break;
+			default:
+				echo "Wysyłanie obrazu się nie powiodło.";
+				$uploadOk == 0;
+			}
 	}
 	
 	// Check if $uploadOk is set to 0 by an error
@@ -114,17 +132,8 @@ $ilegrup = ceil($ile/$poile);
 	$wynikkom = mysqli_query($conn, "SELECT * FROM oceny INNER JOIN uzytkownicy WHERE oceny.idus=uzytkownicy.iduser AND idus=$iduser order by datadod desc LIMIT $pomin,$poile");
 	while ($wierszkom = mysqli_fetch_array($wynikkom))
 	{
-		$idus=$wierszkom ["idus"];
-		$roz = '.jpg';
-		if (file_exists("img/user/$idus$roz")) {
-			$idusjpg=$idus.$roz;
-		}
-		else {
-			$idusjpg="0.jpg";
-		}
-
 		echo '<a href="index.php?plik=opis&nr='.$wierszkom ["idks"].'" target="_blank"><div class="ocena">
-			<div class="headerocena"><img src="img/user/'.$idusjpg.'" style="border-radius:50%; vertical-align:middle;" width="40px" height="40px"/>   ' . $wierszkom ["user"];
+			<div class="headerocena"><img src="'.img('img/user/',$wierszkom ["idus"]).'" style="border-radius:50%; vertical-align:middle;" width="40px" height="40px"/>   ' . $wierszkom ["user"];
 			if($wierszkom ["adminus"]==1){
 				echo' <i class="fas fa-user-astronaut"></i>';
 			}
@@ -150,17 +159,3 @@ if($ilegrup>1){
 
 ?>
 </div>
-<?php
-    /*
-	if ($_SERVER["REQUEST_METHOD"] == "POST") {
-		$kol_pdst= $_POST["kol_pdst"];
-		$kol_ciem= $_POST["kol_ciem"];
-		$kol_jas= $_POST["kol_jas"];
-		$sql = mysqli_query($conn, "UPDATE `uzytkownicy` SET `kol_pdst` = '$kol_pdst', `kol_ciem` = '$kol_ciem', `kol_jas` = '$kol_jas' WHERE `uzytkownicy`.`iduser` = $iduser;");
-		echo '<h2>Zmieniono styl</h2>';
-		setcookie(kol_pdst, $kol_pdst);
-		setcookie(kol_ciem, $kol_ciem);
-		setcookie(kol_jas, $kol_jas);
-    }
-	*/
-?>

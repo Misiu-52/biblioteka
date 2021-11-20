@@ -37,15 +37,7 @@ require("conf.php");
 $wynik = mysqli_query($conn, "SELECT * FROM uzytkownicy");
 while ($wiersz = mysqli_fetch_array($wynik))
 {
-$idus=$wiersz ["iduser"];
-$roz = '.jpg';
-if (file_exists("img/user/$idus$roz")) {
-    $idusjpg=$idus.$roz;
-}
-else {
-    $idusjpg="0.jpg";
-}
-echo '<div class="profil"><img src="img/user/'.$idusjpg.'" style="border-radius:50%; vertical-align:middle;" width="40px" height="40px"/>   ' . $wiersz ["user"];
+echo '<div class="profil"><img src="'.img('img/user/',$wiersz["iduser"]).'" style="border-radius:50%; vertical-align:middle;" width="40px" height="40px"/>   ' . $wiersz ["user"];
 if($wiersz ["adminus"]==1){
     echo' <i class="fas fa-user-astronaut"></i>';
 }

@@ -161,16 +161,7 @@ if(isset($_GET["user"])){
 	$wynik = mysqli_query($conn, "SELECT * FROM uzytkownicy WHERE iduser=$user");
 	$wiersz = mysqli_fetch_array($wynik);
 
-    $idus=$wiersz ["iduser"];
-    $roz = '.jpg';
-    if (file_exists("img/user/$idus$roz")) {
-        $idusjpg=$idus.$roz;
-    }
-    else {
-        $idusjpg="0.jpg";
-    }
-
-	echo '<center><div class="profil" style="width:500px; margin:0px;"><img src="img/user/'.$idusjpg.'" style="border-radius:50%; vertical-align:middle;" width="40px" height="40px"/>   ' . $wiersz ["user"];
+	echo '<center><div class="profil" style="width:500px; margin:0px;"><img src="'.img('img/user/',$wiersz["iduser"]).'" style="border-radius:50%; vertical-align:middle;" width="40px" height="40px"/>   ' . $wiersz ["user"];
 	if($wiersz ["adminus"]==1){
 		echo' <i class="fas fa-user-astronaut"></i>';
 	}

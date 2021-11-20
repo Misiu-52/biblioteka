@@ -30,15 +30,40 @@
 			}
 			
 			// Allow certain file formats
-			if($imageFileType != "jpg") {
+			if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+			&& $imageFileType != "gif" && $imageFileType != "bmp" && $imageFileType != "webp" && $imageFileType != "svg" ) {
 			  echo "Wymaganym formatem jest jpg.";
 			  $uploadOk = 0;
 			}
 			else{
-				$sqlfile=mysqli_query($conn,"SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = '2021_2b1_biblioteka' AND TABLE_NAME = 'ksiazki';");
+				$sqlfile=mysqli_query($conn,"SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = '35341406_biblioteka_misiu' AND TABLE_NAME = 'ksiazki';");
 				$sqlfilefetch = $sqlfile->fetch_assoc();
-				$target_file=$target_dir.$sqlfilefetch["AUTO_INCREMENT"].".jpg";
-
+				switch ($imageFileType) {
+					case "jpg":
+						$target_file=$target_dir.$sqlfilefetch["AUTO_INCREMENT"].".jpg";
+						break;
+					case "jpeg":
+						$target_file=$target_dir.$sqlfilefetch["AUTO_INCREMENT"].".jpeg";
+						break;
+					case "png":
+						$target_file=$target_dir.$sqlfilefetch["AUTO_INCREMENT"].".png";
+						break;
+					case "gif":
+						$target_file=$target_dir.$sqlfilefetch["AUTO_INCREMENT"].".gif";
+						break;
+					case "bmp":
+						$target_file=$target_dir.$sqlfilefetch["AUTO_INCREMENT"].".bmp";
+						break;
+					case "webp":
+						$target_file=$target_dir.$sqlfilefetch["AUTO_INCREMENT"].".webp";
+						break;
+					case "svg":
+						$target_file=$target_dir.$sqlfilefetch["AUTO_INCREMENT"].".svg";
+						break;
+					default:
+						echo "Błąd";
+						$uploadOk == 0;
+					}
 			}
 			
 			// Check if $uploadOk is set to 0 by an error
@@ -101,7 +126,7 @@ while ($wiersz = mysqli_fetch_array($wynik))
 Cena: <input type="number" name="xcena" value="0" min="0" max="1000"> zł
 <P>Opis:<Br>
 <Br><textarea required name="xopis" cols="70" rows="5"></textarea>
-<p><input type="file" name="xobraz"></p>
+<p><input type="file" name="xobraz" accept="image/png, image/jpeg, image/jpg, image/bmp, image/gif, image/webp, image/svg"></p>
 <P><input type="submit" value="Dodaj">
 	<input type="reset" value="Wyczyść">
 </form>
