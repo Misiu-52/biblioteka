@@ -8,8 +8,8 @@
 	}
 	else
 	{
-		$login = $_POST['xlogin'];
-		$haslo = $_POST['xhaslo'];
+		$login = htmlspecialchars($_POST['xlogin']);
+		$haslo = htmlspecialchars($_POST['xhaslo']);
 
 	
 		if ($wynik = mysqli_query($conn, "SELECT * FROM uzytkownicy WHERE user='$login' AND pass='$haslo'"))

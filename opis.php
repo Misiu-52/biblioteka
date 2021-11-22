@@ -5,8 +5,8 @@ echo '<h2>Ocena dodana</h2>';
 require("conf.php");
 $nr= $_GET["nr"];
 
-$xtresc= $_POST["xtresc"];
-$xuser= $_SESSION["id"];
+$xtresc= htmlspecialchars($_POST["xtresc"]);
+$xuser= htmlspecialchars($_SESSION["id"]);
 $sql = mysqli_query($conn, "INSERT into oceny values('','$nr','$xtresc','$xuser', now())");}
 if (!isset ($_GET['grupa'])) {$grupa=1;}
 else {$grupa=$_GET['grupa'];}
@@ -49,7 +49,7 @@ $wynikkom = mysqli_query($conn, "SELECT * FROM oceny INNER JOIN uzytkownicy WHER
 while ($wierszkom = mysqli_fetch_array($wynikkom))
 {
         echo '<div class="ocena">
-        <div class="headerocena"><img src="'.img('img/user/',$wiersz["idus"]).'" style="border-radius:50%; vertical-align:middle;" width="40px" height="40px"/>   ' . $wierszkom ["user"];
+        <div class="headerocena"><img src="'.img('img/user/',$wierszkom["idus"]).'" style="border-radius:50%; vertical-align:middle;" width="40px" height="40px"/>   ' . $wierszkom ["user"];
         if($wierszkom ["adminus"]==1){
             echo' <i class="fas fa-user-astronaut"></i>';
         }

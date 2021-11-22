@@ -2,7 +2,7 @@
 
 		$wszystko_OK=true;
 
-		$login = $_POST['xlogin'];
+		$login = htmlspecialchars($_POST['xlogin']);
 		
 		if ((strlen($login)<3) || (strlen($login)>20))
 		{
@@ -16,8 +16,8 @@
 			header('Location: index.php?plik=rejestracja&error=2');
 		}
 		
-		$haslo1 = $_POST['xhaslo1'];
-		$haslo2 = $_POST['xhaslo2'];
+		$haslo1 = htmlspecialchars($_POST['xhaslo1']);
+		$haslo2 = htmlspecialchars($_POST['xhaslo2']);
 		
 		if ((strlen($haslo1)<8) || (strlen($haslo1)>20))
 		{

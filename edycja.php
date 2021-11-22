@@ -4,15 +4,15 @@ require("conf.php");
         if ($_SERVER["REQUEST_METHOD"] == "POST" and isset($_GET["nr"])) {
 			$nr= $_GET["nr"];
 			require("conf.php");
-			$xpol= $_POST["xpol"];
-			$xorg= $_POST["xorg"];
-			$xautor= $_POST["xautor"];
-			$xdatawyd= $_POST["xdatawyd"];
-			$xgat= $_POST["xgat"];
-			$xwyd= $_POST["xwyd"];
-			$xokl= $_POST["xokl"];
-			$xcena= $_POST["xcena"];
-			$xopis= $_POST["xopis"];
+			$xpol= htmlspecialchars($_POST["xpol"]);
+			$xorg= htmlspecialchars($_POST["xorg"]);
+			$xautor= htmlspecialchars($_POST["xautor"]);
+			$xdatawyd= htmlspecialchars($_POST["xdatawyd"]);
+			$xgat= htmlspecialchars($_POST["xgat"]);
+			$xwyd= htmlspecialchars($_POST["xwyd"]);
+			$xokl= htmlspecialchars($_POST["xokl"]);
+			$xcena= htmlspecialchars($_POST["xcena"]);
+			$xopis= htmlspecialchars($_POST["xopis"]);
 			$sql = mysqli_query($conn, "UPDATE ksiazki SET tyt_pol='$xpol', tyt_org='$xorg', autor='$xautor', gatunek='$xgat', wydawnictwo='$xwyd', opis='$xopis', okladka='$xokl',cena='$xcena', datawyd='$xdatawyd' WHERE id='$nr'") or die(mysqli_error($conn));
 			echo '<center><div class="warn"><i class="fas fa-exclamation-circle"></i> Edytowano książkę '.$xpol.'</div></center>';
         }
@@ -20,7 +20,7 @@ require("conf.php");
 		if ($_SERVER["REQUEST_METHOD"] == "POST" and isset($_GET["ocena"])) {
 			$ocena= $_GET["ocena"];
 			require("conf.php");
-			$xtresc= $_POST["xtresc"];
+			$xtresc= htmlspecialchars($_POST["xtresc"]);
 			$sql = mysqli_query($conn, "UPDATE oceny SET tresc='$xtresc' WHERE idoc='$ocena'") or die(mysqli_error($conn));
 			echo '<center><div class="warn"><i class="fas fa-exclamation-circle"></i> Edytowano ocenę</div></center>';
         }
@@ -28,16 +28,16 @@ require("conf.php");
 		if ($_SERVER["REQUEST_METHOD"] == "POST" and isset($_GET["user"])) {
 			$user= $_GET["user"];
 			require("conf.php");
-			$xuser= $_POST["xuser"];
-			$xpass= $_POST["xpass"];
-			$xadmin= $_POST["xadmin"];
+			$xuser= htmlspecialchars($_POST["xuser"]);
+			$xpass= htmlspecialchars($_POST["xpass"]);
+			$xadmin= htmlspecialchars($_POST["xadmin"]);
 			$sql = mysqli_query($conn, "UPDATE uzytkownicy SET user='$xuser', pass='$xpass', adminus='$xadmin' WHERE iduser='$user'") or die(mysqli_error($conn));
 			echo '<center><div class="warn"><i class="fas fa-exclamation-circle"></i> Edytowano użytkownika</div></center><br>';
         }
 		if ($_SERVER["REQUEST_METHOD"] == "POST" and isset($_GET["gat"])) {
 			$gat= $_GET["gat"];
 			require("conf.php");
-			$xgat= $_POST["xgat"];
+			$xgat= htmlspecialchars($_POST["xgat"]);
 			$sql = mysqli_query($conn, "UPDATE gatunki SET gat='$xgat' WHERE lp='$gat'") or die(mysqli_error($conn));
 			echo '<center><div class="warn"><i class="fas fa-exclamation-circle"></i> Edytowano gatunek</div></center><br>';
         }
@@ -45,7 +45,7 @@ require("conf.php");
 		if ($_SERVER["REQUEST_METHOD"] == "POST" and isset($_GET["okl"])) {
 			$okl= $_GET["okl"];
 			require("conf.php");
-			$xokl= $_POST["xokl"];
+			$xokl= htmlspecialchars($_POST["xokl"]);
 			$sql = mysqli_query($conn, "UPDATE okladka SET okl='$xokl' WHERE idokl='$okl'") or die(mysqli_error($conn));
 			echo '<center><div class="warn"><i class="fas fa-exclamation-circle"></i> Edytowano okładkę</div></center><br>';
         }
@@ -53,7 +53,7 @@ require("conf.php");
 		if ($_SERVER["REQUEST_METHOD"] == "POST" and isset($_GET["wyd"])) {
 			$wyd= $_GET["wyd"];
 			require("conf.php");
-			$xwyd= $_POST["xwyd"];
+			$xwyd= htmlspecialchars($_POST["xwyd"]);
 			$sql = mysqli_query($conn, "UPDATE wyd SET wyd='$xwyd' WHERE idwyd='$wyd'") or die(mysqli_error($conn));
 			echo '<center><div class="warn"><i class="fas fa-exclamation-circle"></i> Edytowano wydawnictwo</div></center><br>';
         }

@@ -1,21 +1,21 @@
 <?php
 
     if ($_SERVER["REQUEST_METHOD"] == "POST" and isset($_POST["xgat"])) {
-        $xgat= $_POST["xgat"];
+        $xgat= htmlspecialchars($_POST["xgat"]);
         require("conf.php");
         $sql = mysqli_query($conn, "INSERT INTO gatunki VALUES('','$xgat')") or die(mysqli_error($conn));
         echo '<center><div class="suc"><i class="fas fa-check"></i> Dodano gatunek</div></center>';
     }
 
     if ($_SERVER["REQUEST_METHOD"] == "POST" and isset($_POST["xokl"])) {
-        $xokl= $_POST["xokl"];
+        $xokl= htmlspecialchars($_POST["xokl"]);
         require("conf.php");
         $sql = mysqli_query($conn, "INSERT INTO okladka VALUES('','$xokl')") or die(mysqli_error($conn));
         echo '<center><div class="suc"><i class="fas fa-check"></i> Dodano typ okładki</div></center>';
     }
 
     if ($_SERVER["REQUEST_METHOD"] == "POST" and isset($_POST["xwyd"])) {
-        $xwyd= $_POST["xwyd"];
+        $xwyd= htmlspecialchars($_POST["xwyd"]);
         require("conf.php");
         $sql = mysqli_query($conn, "INSERT INTO wyd VALUES('','$xwyd')") or die(mysqli_error($conn));
         echo '<center><div class="suc"><i class="fas fa-check"></i> Dodano wydawnictwo</div></center>';

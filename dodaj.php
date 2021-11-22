@@ -2,15 +2,15 @@
         if ($_SERVER["REQUEST_METHOD"] == "POST" and isset($_POST["xpol"])){
 			require("conf.php");
 
-			$xpol= $_POST["xpol"];
-			$xorg= $_POST["xorg"];
-			$xautor= $_POST["xautor"];
-			$xdatawyd= $_POST["xdatawyd"];
-			$xgat= $_POST["xgat"];
-			$xwyd= $_POST["xwyd"];
-			$xokl= $_POST["xokl"];
-			$xcena= $_POST["xcena"];
-			$xopis= $_POST["xopis"];
+			$xpol= htmlspecialchars($_POST["xpol"]);
+			$xorg= htmlspecialchars($_POST["xorg"]);
+			$xautor= htmlspecialchars($_POST["xautor"]);
+			$xdatawyd= htmlspecialchars($_POST["xdatawyd"]);
+			$xgat= htmlspecialchars($_POST["xgat"]);
+			$xwyd= htmlspecialchars($_POST["xwyd"]);
+			$xokl= htmlspecialchars($_POST["xokl"]);
+			$xcena= htmlspecialchars($_POST["xcena"]);
+			$xopis= htmlspecialchars($_POST["xopis"]);
 
 			$target_dir = "img/";
 			$target_file = $target_dir . basename($_FILES["xobraz"]["name"]);
