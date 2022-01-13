@@ -4,11 +4,13 @@ if (!isset($_GET['grupa']))
 	{
 	$xfraza = $_POST['xfraza'];
 	$xgat = $_POST['xgat'];
+	$xwyd = $_POST['xwyd'];
 	$xod = $_POST['xod'];
 	$xdo = $_POST['xdo'];
 	$xsort = $_POST['xsort'];
 	$_SESSION['xfraza'] = $xfraza;
 	$_SESSION['xgat'] = $xgat;
+	$_SESSION['xwyd'] = $xwyd;
 	$_SESSION['xod'] = $xod;
 	$_SESSION['xdo'] = $xdo;
 	$_SESSION['xsort'] = $xsort;
@@ -17,6 +19,7 @@ else
 	{
 	$xfraza = $_SESSION['xfraza'];
 	$xgat = $_SESSION['xgat'];
+	$xwyd = $_SESSION['xwyd'];
 	$xod = $_SESSION['xod'];
 	$xdo = $_SESSION['xdo'];
 	$xsort = $_SESSION['xsort'];	
@@ -34,6 +37,14 @@ $wiersz = mysqli_fetch_array($wynik);
 echo '<b>';
 if ($xgat=="0"){echo 'wszystkie';}
 else {echo '<font color= "black"> ' . $wiersz["gat"] . '</font>';}
+echo'</font></b>' ;
+echo ', wydawnictwo: ';
+$wynik = mysqli_query($conn, "SELECT * FROM wyd WHERE idwyd=$xwyd");
+$wiersz = mysqli_fetch_array($wynik);
+
+echo '<b>';
+if ($xwyd=="0"){echo 'wszystkie';}
+else {echo '<font color= "black"> ' . $wiersz["wyd"] . '</font>';}
 echo'</font></b>' ;
 
 echo ', data wydania: <b>' ;
@@ -53,12 +64,12 @@ if ($xsort==1) {$zsort="ORDER BY tyt_pol";}
 if ($xsort==2) {$zsort="ORDER BY tyt_org";}
 if ($xsort==3) {$zsort="ORDER BY autor";}
 if ($xsort==4) {$zsort="ORDER BY datawyd DESC";}
-$wynik = mysqli_query($conn, "SELECT * FROM ksiazki WHERE (tyt_pol LIKE '%$xfraza%' OR tyt_org LIKE '%$xfraza%' OR autor LIKE '%$xfraza%') OR (datawyd>='$xod' AND datawyd <='$xdo') $zsort");
+$wynik = mysqli_query($conn, "SELECT * FROM ksiazki WHERE (tyt_pol LIKE '%$xfraza%' OR tyt_org LIKE '%$xfraza%' OR autor LIKE '%$xfraza%') AND (year(datawyd)>='$xod' AND year(datawyd) <='$xdo') AND gatunek=$xgat $zsort");
 $ile = mysqli_num_rows($wynik);
 $poile=6;
 $pomin=($grupa-1)*$poile;
 $ilegrup = ceil($ile/$poile);
-$wynik = mysqli_query($conn, "SELECT * FROM ksiazki WHERE (tyt_pol LIKE '%$xfraza%' OR tyt_org LIKE '%$xfraza%' OR autor LIKE '%$xfraza%') OR (datawyd>='$xod' AND datawyd <='$xdo') $zsort LIMIT $pomin,$poile");
+$wynik = mysqli_query($conn, "SELECT * FROM ksiazki WHERE (tyt_pol LIKE '%$xfraza%' OR tyt_org LIKE '%$xfraza%' OR autor LIKE '%$xfraza%') AND (year(datawyd)>='$xod' AND year(datawyd) <='$xdo') AND gatunek=$xgat $zsort LIMIT $pomin,$poile");
 ?>
 <div class="sklep">
 <?php
@@ -66,7 +77,7 @@ $wynik = mysqli_query($conn, "SELECT * FROM ksiazki WHERE (tyt_pol LIKE '%$xfraz
 while ($wiersz = mysqli_fetch_array($wynik))
 			{
 	echo '<a href="index.php?plik=opis&nr=' . $wiersz ["id"] . '"><div class="ksiazka">';
-	echo '<img class="ksiazkaimg" src="'.img('img/',$wiersz["id"]).'" height="320px"/>';
+	echo '<img class="ksiazkaimg" src="img/' . $wiersz ["id"] . '.jpg" height="320px"/>';
 	echo '<div class="ksiazkaname">' . $wiersz ["tyt_pol"] . '<br>'
 	. $wiersz ["cena"] .' zł</div>';
 	echo'</div></a>';
@@ -77,11 +88,11 @@ while ($wiersz = mysqli_fetch_array($wynik))
 
 if($ilegrup>1){
 
-if ($grupa>1) {echo '<A HREF="index.php?plik=wynik&grupa=' . ($grupa-1) . '"><Button><</Button></A> ';}
+if ($grupa>1) {echo '<a href="index.php?plik=wynik&grupa=' . ($grupa-1) . '"><Button><</Button></a> ';}
 for ($j=0; $j<$ilegrup; $j++)
 {
-	echo '<A HREF=index.php?plik=wynik&grupa=' . ($j+1) . '><Button>' . ($j+1). '</Button></A> ';
+	echo '<a href=index.php?plik=wynik&grupa=' . ($j+1) . '><Button>' . ($j+1). '</Button></a> ';
 }
-if ($grupa<$ilegrup) {echo '<A HREF="index.php?plik=wynik&grupa=' . ($grupa+1) . '"><Button>></Button></A>';}}
+if ($grupa<$ilegrup) {echo '<a href="index.php?plik=wynik&grupa=' . ($grupa+1) . '"><Button>></Button></a>';}}
 ?>
 </center>
