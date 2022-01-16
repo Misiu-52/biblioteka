@@ -21,7 +21,7 @@ echo '<img style="margin: 10px;" src="'.img('img/',$wiersz["id"]).'" height="350
 echo '<div class="imgside"><h1>'.  $wiersz["tyt_pol"] . '<br>('.  $wiersz["tyt_org"] .')</h1>
 <h2>Autor: '.  $wiersz["autor"] .'</h2>
 <h2>Gatunek: '.  $wiersz["gat"] .'</h2>
-<h2>Wydawnictwo: '.  $wiersz["wyd"] .'</h2>
+<a href="index.php?plik=wyd&wyd=' . $wiersz["idwyd"] . '"><h2>Wydawnictwo: '.  $wiersz["wyd"] .'</h2></a>
 <h2>Oprawa: '.  $wiersz["okl"] .'</h2>
 <button>'. $wiersz["cena"] .' zł Kup teraz</button>';
 
