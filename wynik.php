@@ -5,12 +5,14 @@ if (!isset($_GET['grupa']))
 	$xfraza = $_POST['xfraza'];
 	$xgat = $_POST['xgat'];
 	$xwyd = $_POST['xwyd'];
+	$xokl = $_POST['xokl'];
 	$xod = $_POST['xod'];
 	$xdo = $_POST['xdo'];
 	$xsort = $_POST['xsort'];
 	$_SESSION['xfraza'] = $xfraza;
 	$_SESSION['xgat'] = $xgat;
 	$_SESSION['xwyd'] = $xwyd;
+	$_SESSION['xokl'] = $xokl;
 	$_SESSION['xod'] = $xod;
 	$_SESSION['xdo'] = $xdo;
 	$_SESSION['xsort'] = $xsort;
@@ -20,6 +22,7 @@ else
 	$xfraza = $_SESSION['xfraza'];
 	$xgat = $_SESSION['xgat'];
 	$xwyd = $_SESSION['xwyd'];
+	$xokl = $_SESSION['xokl'];
 	$xod = $_SESSION['xod'];
 	$xdo = $_SESSION['xdo'];
 	$xsort = $_SESSION['xsort'];	
@@ -57,7 +60,19 @@ else {
 	$xwyd="AND wydawnictwo=".$xwyd;
 	echo '<font color= "black"> ' . $wiersz["wyd"] . '</font>';
 }
+echo ', oprawa: ';
+$wynik = mysqli_query($conn, "SELECT * FROM okladka WHERE idokl=$xokl");
+$wiersz = mysqli_fetch_array($wynik);
 
+echo '<b>';
+if ($xokl=="0"){
+	echo 'wszystkie';
+	$xwyd="";
+}
+else {
+	$xokl="AND okladka=".$xokl;
+	echo '<font color= "black"> ' . $wiersz["okl"] . '</font>';
+}
 echo ', data wydania: <b>' ;
 if($xod=="" && $xdo=="") {echo 'wszystkie';}
 echo '<font color ="black">';
@@ -75,12 +90,12 @@ if ($xsort==1) {$zsort="ORDER BY tyt_pol";}
 if ($xsort==2) {$zsort="ORDER BY tyt_org";}
 if ($xsort==3) {$zsort="ORDER BY autor";}
 if ($xsort==4) {$zsort="ORDER BY datawyd DESC";}
-$wynik = mysqli_query($conn, "SELECT * FROM ksiazki WHERE (tyt_pol LIKE '%$xfraza%' OR tyt_org LIKE '%$xfraza%' OR autor LIKE '%$xfraza%') AND (year(datawyd)>='$xod' AND year(datawyd) <='$xdo') $xgat $xwyd $zsort");
+$wynik = mysqli_query($conn, "SELECT * FROM ksiazki WHERE (tyt_pol LIKE '%$xfraza%' OR tyt_org LIKE '%$xfraza%' OR autor LIKE '%$xfraza%') AND (year(datawyd)>='$xod' AND year(datawyd) <='$xdo') $xgat $xwyd $xokl $zsort");
 $ile = mysqli_num_rows($wynik);
 $poile=6;
 $pomin=($grupa-1)*$poile;
 $ilegrup = ceil($ile/$poile);
-$wynik = mysqli_query($conn, "SELECT * FROM ksiazki WHERE (tyt_pol LIKE '%$xfraza%' OR tyt_org LIKE '%$xfraza%' OR autor LIKE '%$xfraza%') AND (year(datawyd)>='$xod' AND year(datawyd) <='$xdo') $xgat $xwyd $zsort LIMIT $pomin,$poile");
+$wynik = mysqli_query($conn, "SELECT * FROM ksiazki WHERE (tyt_pol LIKE '%$xfraza%' OR tyt_org LIKE '%$xfraza%' OR autor LIKE '%$xfraza%') AND (year(datawyd)>='$xod' AND year(datawyd) <='$xdo') $xgat $xwyd $xokl $zsort LIMIT $pomin,$poile");
 ?>
 <div class="sklep">
 <?php

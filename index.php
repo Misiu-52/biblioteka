@@ -2,7 +2,7 @@
 <html>
 	<?php
 	session_start();
-	$debugmode=0;
+	$debugmode=1;
 
 	if (!isset($_SESSION['zalogowany'])) {
 		$_SESSION['zalogowany']=FALSE;

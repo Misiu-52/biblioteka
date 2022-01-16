@@ -123,7 +123,7 @@ while ($wiersz = mysqli_fetch_array($wynik))
 	echo '<option value="' . $wiersz["idokl"] . '">' . $wiersz["okl"] . '</option>';}
 ?>
 </select></p>
-Cena: <input type="number" name="xcena" value="0" min="0" max="1000"> zł
+Cena: <input type="number" name="xcena" value="0" min="0" max="1000" step="0.01"> zł
 <P>Opis:<Br>
 <Br><textarea required name="xopis" cols="70" rows="5"></textarea>
 <p><input type="file" name="xobraz" accept="image/png, image/jpeg, image/jpg, image/bmp, image/gif, image/webp, image/svg"></p>
