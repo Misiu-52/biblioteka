@@ -35,17 +35,28 @@ $wynik = mysqli_query($conn, "SELECT * FROM gatunki WHERE lp=$xgat");
 $wiersz = mysqli_fetch_array($wynik);
 
 echo '<b>';
-if ($xgat=="0"){echo 'wszystkie';}
-else {echo '<font color= "black"> ' . $wiersz["gat"] . '</font>';}
+if ($xgat=="0"){
+	echo 'wszystkie';
+	$xgat="";
+}
+else {
+	$xgat="AND gatunek=".$xgat;
+	echo '<font color= "black"> ' . $wiersz["gat"] . '</font>';
+}
 echo'</font></b>' ;
 echo ', wydawnictwo: ';
 $wynik = mysqli_query($conn, "SELECT * FROM wyd WHERE idwyd=$xwyd");
 $wiersz = mysqli_fetch_array($wynik);
 
 echo '<b>';
-if ($xwyd=="0"){echo 'wszystkie';}
-else {echo '<font color= "black"> ' . $wiersz["wyd"] . '</font>';}
-echo'</font></b>' ;
+if ($xwyd=="0"){
+	echo 'wszystkie';
+	$xwyd="";
+}
+else {
+	$xwyd="AND wydawnictwo=".$xwyd;
+	echo '<font color= "black"> ' . $wiersz["wyd"] . '</font>';
+}
 
 echo ', data wydania: <b>' ;
 if($xod=="" && $xdo=="") {echo 'wszystkie';}
@@ -64,12 +75,12 @@ if ($xsort==1) {$zsort="ORDER BY tyt_pol";}
 if ($xsort==2) {$zsort="ORDER BY tyt_org";}
 if ($xsort==3) {$zsort="ORDER BY autor";}
 if ($xsort==4) {$zsort="ORDER BY datawyd DESC";}
-$wynik = mysqli_query($conn, "SELECT * FROM ksiazki WHERE (tyt_pol LIKE '%$xfraza%' OR tyt_org LIKE '%$xfraza%' OR autor LIKE '%$xfraza%') AND (year(datawyd)>='$xod' AND year(datawyd) <='$xdo') AND gatunek=$xgat $zsort");
+$wynik = mysqli_query($conn, "SELECT * FROM ksiazki WHERE (tyt_pol LIKE '%$xfraza%' OR tyt_org LIKE '%$xfraza%' OR autor LIKE '%$xfraza%') AND (year(datawyd)>='$xod' AND year(datawyd) <='$xdo') $xgat $xwyd $zsort");
 $ile = mysqli_num_rows($wynik);
 $poile=6;
 $pomin=($grupa-1)*$poile;
 $ilegrup = ceil($ile/$poile);
-$wynik = mysqli_query($conn, "SELECT * FROM ksiazki WHERE (tyt_pol LIKE '%$xfraza%' OR tyt_org LIKE '%$xfraza%' OR autor LIKE '%$xfraza%') AND (year(datawyd)>='$xod' AND year(datawyd) <='$xdo') AND gatunek=$xgat $zsort LIMIT $pomin,$poile");
+$wynik = mysqli_query($conn, "SELECT * FROM ksiazki WHERE (tyt_pol LIKE '%$xfraza%' OR tyt_org LIKE '%$xfraza%' OR autor LIKE '%$xfraza%') AND (year(datawyd)>='$xod' AND year(datawyd) <='$xdo') $xgat $xwyd $zsort LIMIT $pomin,$poile");
 ?>
 <div class="sklep">
 <?php
@@ -77,7 +88,7 @@ $wynik = mysqli_query($conn, "SELECT * FROM ksiazki WHERE (tyt_pol LIKE '%$xfraz
 while ($wiersz = mysqli_fetch_array($wynik))
 			{
 	echo '<a href="index.php?plik=opis&nr=' . $wiersz ["id"] . '"><div class="ksiazka">';
-	echo '<img class="ksiazkaimg" src="img/' . $wiersz ["id"] . '.jpg" height="320px"/>';
+	echo '<img class="ksiazkaimg" src="'.img('img/',$wiersz["id"]).'" height="320px"/>';
 	echo '<div class="ksiazkaname">' . $wiersz ["tyt_pol"] . '<br>'
 	. $wiersz ["cena"] .' zł</div>';
 	echo'</div></a>';

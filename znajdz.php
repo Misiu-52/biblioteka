@@ -13,6 +13,18 @@ echo '<option value="' . $wiersz["lp"] . '">' . $wiersz["gat"] . '</option>';
 }
 ?>
 </select></p>
+
+Wydawnictwo: <select name="xwyd">
+<option value="0">wszytskie</option>
+<?php
+require("conf.php");
+$wynik = mysqli_query($conn, "SELECT * FROM wyd ORDER BY wyd");
+while ($wiersz = mysqli_fetch_array($wynik))
+{
+echo '<option value="' . $wiersz["idwyd"] . '">' . $wiersz["wyd"] . '</option>';
+}
+?>
+</select></p>
 <p>
 Wydano od: <input type="number" name="xod" min="0" max="9999">
 do: <input type="number" name="xdo" min="0" max="9999">

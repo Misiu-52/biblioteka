@@ -23,6 +23,7 @@ echo '<div class="imgside"><h1>'.  $wiersz["tyt_pol"] . '<br>('.  $wiersz["tyt_o
 <h2>Gatunek: '.  $wiersz["gat"] .'</h2>
 <a href="index.php?plik=wyd&wyd=' . $wiersz["idwyd"] . '"><h2>Wydawnictwo: '.  $wiersz["wyd"] .'</h2></a>
 <h2>Oprawa: '.  $wiersz["okl"] .'</h2>
+<h2>Wydano: '.  $wiersz["datawyd"] .'</h2>
 <button>'. $wiersz["cena"] .' zł Kup teraz</button>';
 
 if (($_SESSION['admin'])== 1 )
